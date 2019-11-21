@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper>
+    <resultMap id="BaseResultMap" type="tk.ewentsai.pojo.Book">
+        <result column="id" property="id"/>
+        <result column="bookname" property="bookname"/>
+        <result column="author" property="author"/>
+        <result column="releaseTime" property="releaseTime"/>
+        <result column="intro" property="intro"/>
+        <result column="price" property="price"/>
+        <result column="rate" property="rate"/>
+        <result column="aboutAuthor" property="aboutAuthor"/>
+    </resultMap>
+
+    <parameterMap id="Book" type="tk.ewentsai.pojo.Book"/>
+
+    <sql id="Base_Column_list">
+        id,bookname,author,releaseTime,intro,price,rate,aboutAuthor
+    </sql>
+
+    <select id="findAllBook" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_list"/>
+        FROM books
+    </select>
+
+    <select id="findBookByBookName" parameterType="String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_list"/>
+        FROM books
+        WHERE bookname = #{bookname}
+    </select>
+
+    <select id="paginationBook" parameterType="int" resultMap="BaseResultMap">
+
+    </select>
+
+</mapper>
+
+        <!--        @Select("select * from books")-->
+        <!--        ArrayList<Book> getAllBook();-->
+
+        <!--@Select("select * from books where id = #{id}")-->
+        <!--Book getBookById(int id);-->
+
+        <!--@Select("select * from books where bookName like CONCAT(CONCAT('%', #{bookname}), '%')")-->
+        <!--ArrayList<Book> getBookByName(String bookname);-->
+
+        <!--    @Select("select * from books limit #{id},10")-->
+        <!--    ArrayList<Book> paginationBook(int id);-->
+
+
+
+<!--        ArrayList<Book> findAllBook();-->
+
+<!--/**-->
+<!--* 通过书名查询书-->
+<!--* @param bookname-->
+<!--* @return-->
+<!--*/-->
+<!--ArrayList<Book> findBookByBookName(String bookname);-->
+
+<!--    /**-->
+<!--    * 分页显示书籍-->
+<!--    * @param id-->
+<!--    * @return-->
+<!--    */-->
+<!--    ArrayList<Book> paginationBook(int id);-->
+
+<!--        /**-->
+<!--        * 通过书本id查询书-->
+<!--        * @param id-->
+<!--        * @return-->
+<!--        */-->
+<!--        Book findBookById(int id);-->
