@@ -1,6 +1,6 @@
 package tk.ewentsai.dao;
 
-import tk.ewentsai.pojo.Order;
+import tk.ewentsai.pojo.singalOrder;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ public class OrderServiceImpl implements OrderService{
     public void setOrderMapper(OrderMapper orderMapper) { this.orderMapper = orderMapper; }
 
     @Override
-    public ArrayList<Order> getOrderByOrderId(int orderId) { return orderMapper.selectOrderByOrderId(orderId); }
+    public ArrayList<singalOrder> getOrderByOrderId(int orderId) { return orderMapper.selectOrderByOrderId(orderId); }
 
     @Override
     public int getOrderId() { return orderMapper.selectOrderId(); }

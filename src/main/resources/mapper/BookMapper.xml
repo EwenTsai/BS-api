@@ -33,44 +33,16 @@
     </select>
 
     <select id="paginationBook" parameterType="int" resultMap="BaseResultMap">
-
+        SELECT
+        <include refid="Base_Column_list"/>
+        FROM books
+        limit #{id},10
     </select>
 
+    <select id="findBookById" parameterType="int" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_list"/>
+        FROM books
+        where id = #{id}
+    </select>
 </mapper>
-
-        <!--        @Select("select * from books")-->
-        <!--        ArrayList<Book> getAllBook();-->
-
-        <!--@Select("select * from books where id = #{id}")-->
-        <!--Book getBookById(int id);-->
-
-        <!--@Select("select * from books where bookName like CONCAT(CONCAT('%', #{bookname}), '%')")-->
-        <!--ArrayList<Book> getBookByName(String bookname);-->
-
-        <!--    @Select("select * from books limit #{id},10")-->
-        <!--    ArrayList<Book> paginationBook(int id);-->
-
-
-
-<!--        ArrayList<Book> findAllBook();-->
-
-<!--/**-->
-<!--* 通过书名查询书-->
-<!--* @param bookname-->
-<!--* @return-->
-<!--*/-->
-<!--ArrayList<Book> findBookByBookName(String bookname);-->
-
-<!--    /**-->
-<!--    * 分页显示书籍-->
-<!--    * @param id-->
-<!--    * @return-->
-<!--    */-->
-<!--    ArrayList<Book> paginationBook(int id);-->
-
-<!--        /**-->
-<!--        * 通过书本id查询书-->
-<!--        * @param id-->
-<!--        * @return-->
-<!--        */-->
-<!--        Book findBookById(int id);-->

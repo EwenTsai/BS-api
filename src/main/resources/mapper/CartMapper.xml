@@ -3,4 +3,52 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper>
 
+    <resultMap id="BaseResultMap" type="tk.ewentsai.pojo.Cart">
+        <result column="id" property="id"/>
+        <result column="uid" property="uid"/>
+        <result column="bookId" property="bookId"/>
+        <result column="amount" property="amount"/>
+    </resultMap>
+
+    <parameterMap id="Cart" type="tk.ewentsai.pojo.Cart"/>
+
+    <sql id="Base_Column_list">
+        id,uid,bookId,amount
+    </sql>
+
+    <select id="findCartByUid">
+        SELECT
+        <include refid="Base_Column_list"/>
+        FROM cart
+        WHERE uid = #{uid}
+    </select>
+
+    <select id="findCartByBookIdAndUid">
+        SELECT
+        <include refid="Base_Column_list"/>
+        FROM cart
+        WHERE uid = #{uid} AND uid = #{uid}
+    </select>
+
+    <update id="updateCartByBookId">
+        UPDATE cart
+        SET amount = #{amount}
+        WHERE bookId = #{bookId} and uid = #{uid}
+    </update>
+
+    <insert id="addCart">
+        INSERT INTO
+        cart (id,uid,bookId,amount)
+        VALUES (default,#{uid},#{bookId},#{amount})
+    </insert>
+
+    <delete id="removeCartByBookIdAndUid">
+        DELETE FROM cart
+        WHERE bookId = #{bookId} AND uid = #{uid}
+    </delete>
+
+    <delete id="removeAllByUid">
+        DELETE FROM cart
+        WHERE uid = #{uid}
+    </delete>
 </mapper>

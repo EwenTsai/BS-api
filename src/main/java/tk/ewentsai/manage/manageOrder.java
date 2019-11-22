@@ -2,11 +2,10 @@ package tk.ewentsai.manage;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import tk.ewentsai.dao.CartServiceImpl;
 import tk.ewentsai.dao.OrderServiceImpl;
 import tk.ewentsai.dao.OrdersServiceImpl;
 import tk.ewentsai.pojo.Book;
-import tk.ewentsai.pojo.Order;
+import tk.ewentsai.pojo.singalOrder;
 import tk.ewentsai.pojo.Orders;
 
 import java.math.BigDecimal;
@@ -34,7 +33,7 @@ public class manageOrder {
         cartBean.removeAll(uid);
     }
 
-    public static ArrayList<Order> getOrderByOrderId(int orderId){ return OrderBean.getOrderByOrderId(orderId); }
+    public static ArrayList<singalOrder> getOrderByOrderId(int orderId){ return OrderBean.getOrderByOrderId(orderId); }
 
     public static Orders getOrdersByOrderId(int orderId){ return OrdersBean.getOrdersByOrderId(orderId); }
 

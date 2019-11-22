@@ -4,13 +4,13 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import tk.ewentsai.pojo.Order;
+import tk.ewentsai.pojo.singalOrder;
 
 import java.util.ArrayList;
 
 public interface OrderMapper {
     @Select("select * from singalOrder where orderId = #{orderId}")
-    ArrayList<Order> selectOrderByOrderId(int orderId);
+    ArrayList<singalOrder> selectOrderByOrderId(int orderId);
 
     @Select("select orderId from singalOrder where bookId is null")
     int selectOrderId();

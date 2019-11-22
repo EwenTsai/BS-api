@@ -2,7 +2,6 @@ package tk.ewentsai.manage;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import tk.ewentsai.dao.CartServiceImpl;
 import tk.ewentsai.pojo.Book;
 import tk.ewentsai.pojo.Cart;
 

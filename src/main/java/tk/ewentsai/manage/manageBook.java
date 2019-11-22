@@ -2,11 +2,8 @@ package tk.ewentsai.manage;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import tk.ewentsai.dao.BookServiceImpl;
 import tk.ewentsai.dao.OrdersServiceImpl;
-import tk.ewentsai.dao.eBookServiceImpl;
 import tk.ewentsai.pojo.Book;
-import tk.ewentsai.pojo.PageBean;
 import tk.ewentsai.pojo.eBook;
 
 import java.util.ArrayList;

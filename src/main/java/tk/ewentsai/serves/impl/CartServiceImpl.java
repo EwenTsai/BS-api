@@ -34,11 +34,11 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void removeCartByBookId(int uid, int bookId) {
-        cartDao.removeCartByBookId(uid,bookId);
+        cartDao.removeCartByBookIdAndUid(uid,bookId);
     }
 
     @Override
     public void removeAll(int uid) {
-        cartDao.removeAll(uid);
+        cartDao.removeAllByUid(uid);
     }
 }

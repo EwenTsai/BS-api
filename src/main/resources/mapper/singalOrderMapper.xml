@@ -2,5 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper>
+    <resultMap id="BaseResultMap" type="tk.ewentsai.pojo.singalOrder">
+        <result column="id" property="id"/>
+        <result column="orderId" property="orderId"/>
+        <result column="bookId" property="bookId"/>
+    </resultMap>
 
+    <parameterMap id="eBook" type="tk.ewentsai.pojo.eBook"/>
+
+    <sql id="Base_Column_list">
+        id,orderId,bookId
+    </sql>
+
+    <select id="selectOrderByOrderId" parameterType="int" resultMap="BaseResultMap">
+        SELECT
+        FROM singalOrder
+        WHERE orderId = #{orderId}
+    </select>
+
+    <select id="selectOrderId" parameterType="int" resultMap="BaseResultMap">
+        SELECT orderId
+        FROM singalOrder
+        WHERE bookId is NULL
+    </select>
+
+    <insert id="insertOrder">
+        INSERT INTO
+        singalOrder (id,orderId,bookId)
+        VALUES (default,#{orderId},#{bookId})
+    </insert>
+
+    <delete id="deleteOrderByOrderId">
+        DELETE FROM singalOrder
+        WHERE orderId = #{orderId}
+    </delete>
 </mapper>

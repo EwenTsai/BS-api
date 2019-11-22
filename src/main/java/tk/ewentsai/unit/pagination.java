@@ -2,9 +2,7 @@ package tk.ewentsai.unit;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import tk.ewentsai.dao.BookServiceImpl;
 import tk.ewentsai.dao.OrdersServiceImpl;
-import tk.ewentsai.dao.eBookServiceImpl;
 import tk.ewentsai.pojo.PageBean;
 
 public class pagination {

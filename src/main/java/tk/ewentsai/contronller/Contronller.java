@@ -7,7 +7,6 @@ import tk.ewentsai.manage.manageCart;
 import tk.ewentsai.manage.manageOrder;
 import tk.ewentsai.manage.manageUser;
 import tk.ewentsai.pojo.*;
-import tk.ewentsai.serves.*;
 import tk.ewentsai.unit.pagination;
 import tk.ewentsai.unit.vaildateCode;
 
@@ -156,11 +155,11 @@ public class Contronller {
     //订单详情信息获取
     @RequestMapping("orderDetail.do")
     public ArrayList orderDetail(int orderId){
-        ArrayList<Order> order = manageOrder.getOrderByOrderId(orderId);
+        ArrayList<singalOrder> singalOrder = manageOrder.getOrderByOrderId(orderId);
         Orders orders = manageOrder.getOrdersByOrderId(orderId);
         ArrayList result = new ArrayList();
         result.add(orders);
-        result.add(order);
+        result.add(singalOrder);
         return result;
     }
     @RequestMapping("download.do")

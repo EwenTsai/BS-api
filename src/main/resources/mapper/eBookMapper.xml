@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper>
+    <resultMap id="BaseResultMap" type="tk.ewentsai.pojo.Book">
+        <result column="id" property="id"/>
+        <result column="bookname" property="bookname"/>
+        <result column="downloadlink" property="downloadLink"/>
+    </resultMap>
+
+    <parameterMap id="eBook" type="tk.ewentsai.pojo.eBook"/>
+
+    <sql id="Base_Column_list">
+        id,bookname,downloadLink
+    </sql>
+
+    <select id="selAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_list"/>
+        FROM books
+    </select>
+
+    <select id="paginationBook" parameterType="int" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_list"/>
+        FROM eBooks
+        limit #{id},10
+    </select>
+</mapper>

@@ -44,11 +44,11 @@ public interface CartDao {
      * @param uid
      * @param bookId
      */
-    void removeCartByBookId(@Param("uid") int uid, @Param("bookId") int bookId);
+    void removeCartByBookIdAndUid(@Param("uid") int uid, @Param("bookId") int bookId);
 
     /**
      * 删除制定用户下所有购物车的商品
      * @param uid
      */
-    void removeAll(int uid);
+    void removeAllByUid(int uid);
 }
