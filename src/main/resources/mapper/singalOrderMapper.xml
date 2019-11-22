@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper>
+<mapper namespace="tk.ewentsai.pojo.singalOrder">
     <resultMap id="BaseResultMap" type="tk.ewentsai.pojo.singalOrder">
         <result column="id" property="id"/>
         <result column="orderId" property="orderId"/>
         <result column="bookId" property="bookId"/>
     </resultMap>
 
-    <parameterMap id="eBook" type="tk.ewentsai.pojo.eBook"/>
+    <parameterMap id="singalOrder" type="tk.ewentsai.pojo.singalOrder"/>
 
     <sql id="Base_Column_list">
         id,orderId,bookId

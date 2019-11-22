@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper>
+<mapper namespace="tk.ewentsai.dao.CartDao">
 
     <resultMap id="BaseResultMap" type="tk.ewentsai.pojo.Cart">
         <result column="id" property="id"/>
@@ -16,38 +16,38 @@
         id,uid,bookId,amount
     </sql>
 
-    <select id="findCartByUid">
+    <select id="findCartByUid" parameterType="int" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_list"/>
         FROM cart
         WHERE uid = #{uid}
     </select>
 
-    <select id="findCartByBookIdAndUid">
+    <select id="findCartByBookIdAndUid" parameterType="int" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_list"/>
         FROM cart
         WHERE uid = #{uid} AND uid = #{uid}
     </select>
 
-    <update id="updateCartByBookId">
+    <update id="updateCartByBookId" parameterType="int">
         UPDATE cart
         SET amount = #{amount}
         WHERE bookId = #{bookId} and uid = #{uid}
     </update>
 
-    <insert id="addCart">
+    <insert id="addCart" parameterType="int">
         INSERT INTO
         cart (id,uid,bookId,amount)
         VALUES (default,#{uid},#{bookId},#{amount})
     </insert>
 
-    <delete id="removeCartByBookIdAndUid">
+    <delete id="removeCartByBookIdAndUid" parameterType="int">
         DELETE FROM cart
         WHERE bookId = #{bookId} AND uid = #{uid}
     </delete>
 
-    <delete id="removeAllByUid">
+    <delete id="removeAllByUid" parameterType="int">
         DELETE FROM cart
         WHERE uid = #{uid}
     </delete>

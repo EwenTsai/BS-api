@@ -3,7 +3,7 @@ package tk.ewentsai.pojo;
 import lombok.Data;
 @Data
 public class User {
-	private String uid;
+	private int uid;
 	private String uname;
 	private String pwd;
 	private String age;

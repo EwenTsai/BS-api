@@ -5,7 +5,7 @@ import tk.ewentsai.pojo.User;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserDao {
+public interface    UserDao {
     /**
      * 通过名字查询用户信息
      */
