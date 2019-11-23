@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="tk.ewentsai.pojo.eBook">
-    <resultMap id="BaseResultMap" type="tk.ewentsai.pojo.Book">
+
+<mapper namespace="tk.ewentsai.dao.eBookDao">
+
+    <resultMap id="BaseResultMap" type="tk.ewentsai.pojo.eBook">
         <result column="id" property="id"/>
         <result column="bookname" property="bookname"/>
         <result column="downloadlink" property="downloadLink"/>

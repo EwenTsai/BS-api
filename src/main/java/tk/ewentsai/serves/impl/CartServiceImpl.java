@@ -13,9 +13,7 @@ public class CartServiceImpl implements CartService {
     private CartDao cartDao;
 
     @Override
-    public ArrayList<Cart> findCartByUid(int uid) {
-        return cartDao.findCartByUid(uid);
-    }
+    public ArrayList<Cart> findCartByUid(int uid) { return cartDao.findCartByUid(uid); }
 
     @Override
     public Cart findCartByBookIdAndUid(int bookId, int uid) {
@@ -23,8 +21,8 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void updateCartByBookId(int uid, int bookId, int amount) {
-        cartDao.updateCartByBookId(uid,bookId,amount);
+    public void updateAmountByBookIdAndUid(int uid, int bookId, int amount) {
+        cartDao.updateAmountByBookIdAndUid(uid,bookId,amount);
     }
 
     @Override
@@ -33,12 +31,13 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void removeCartByBookId(int uid, int bookId) {
+    public void removeCartByBookIdAndUid(int uid, int bookId) {
         cartDao.removeCartByBookIdAndUid(uid,bookId);
     }
 
     @Override
-    public void removeAll(int uid) {
+    public void removeAllByUid(int uid) {
         cartDao.removeAllByUid(uid);
     }
+
 }

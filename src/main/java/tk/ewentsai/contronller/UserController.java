@@ -45,6 +45,8 @@ public class UserController {
                     Cookie cookie = new Cookie("uid", user.getUid()+"");
                     //设置cookies存活时间
                     cookie.setMaxAge(3*24*3600);
+                    //设置cookie的路径，cookie的访问有路径限制
+                    cookie.setPath("/BTS");
                     response.addCookie(cookie);
                     //将用户购物车的信息放入session中
                     hs.setAttribute("Carts", cartService.findCartByUid(user.getUid()));
@@ -60,7 +62,6 @@ public class UserController {
         }
         return returnString;
     }
-
     //注册
     @RequestMapping(value = "/api/user/register",produces = {"application/json;charset=UTF-8"})
     public String register(String uname, String pwd, String VaildateCode, HttpSession hs) {

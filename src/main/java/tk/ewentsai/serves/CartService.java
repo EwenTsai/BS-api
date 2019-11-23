@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public interface CartService {
     ArrayList<Cart> findCartByUid(int uid);
     Cart findCartByBookIdAndUid(@Param("bookId") int bookId, @Param("uid") int uid);
-    void updateCartByBookId(@Param("uid") int uid, @Param("bookId") int bookId, @Param("amount") int amount);
+    void updateAmountByBookIdAndUid(@Param("uid") int uid, @Param("bookId") int bookId, @Param("amount") int amount);
     void addCart(@Param("uid") int uid, @Param("bookId") int bookId, @Param("amount") int amount);
-    void removeCartByBookId(@Param("uid") int uid, @Param("bookId") int bookId);
-    void removeAll(int uid);
+    void removeCartByBookIdAndUid(@Param("uid") int uid, @Param("bookId") int bookId);
+    void removeAllByUid(int uid);
 }

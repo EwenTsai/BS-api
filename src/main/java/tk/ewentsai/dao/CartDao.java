@@ -29,7 +29,7 @@ public interface CartDao {
      * @param bookId
      * @param amount
      */
-    void updateCartByBookId(@Param("uid") int uid, @Param("bookId") int bookId, @Param("amount") int amount);
+    void updateAmountByBookIdAndUid(@Param("uid") int uid, @Param("bookId") int bookId, @Param("amount") int amount);
 
     /**
      * 在购物车中添加对应的书本

@@ -27,10 +27,10 @@
         SELECT
         <include refid="Base_Column_list"/>
         FROM cart
-        WHERE uid = #{uid} AND uid = #{uid}
+        WHERE bookId = #{bookId} AND uid = #{uid}
     </select>
 
-    <update id="updateCartByBookId" parameterType="int">
+    <update id="updateAmountByBookIdAndUid" parameterType="int">
         UPDATE cart
         SET amount = #{amount}
         WHERE bookId = #{bookId} and uid = #{uid}
