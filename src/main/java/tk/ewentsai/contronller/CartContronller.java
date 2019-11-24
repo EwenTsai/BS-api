@@ -26,6 +26,7 @@ public class CartContronller {
     }
 
     //购物车信息修改
+	//存在线程安全安全问题
     @RequestMapping("/api/Cart/updateCart")
     public List<Book> cart(HttpSession hs, @RequestParam(defaultValue = "0") int bookId) {
         ArrayList<Cart> Carts = (ArrayList<Cart>) hs.getAttribute("Carts");
@@ -42,9 +43,8 @@ public class CartContronller {
 			if(cart==null){
 				cartService.addCart(user.getUid(), bookId,1);
 			}else{
-				cartService.updateAmountByBookIdAndUid(cart.getId(), bookId,cart.getAmount()+1);
+				cartService.updateAmountByBookIdAndUid(cart.getUid(), bookId,cart.getAmount()+1);
 			}
-//			total+=book.getPrice();
 		// id小于0从购物车里删除
 		}else if(bookId<0){
 			//将id值变为正数
@@ -65,18 +65,10 @@ public class CartContronller {
 		//将cart对象转化为Book传到前端显示
 		ArrayList<Book> cartBook = new ArrayList<>();
 		for(Cart cart : Carts){
-			cartBook.add(bookService.findBookById(cart.getBookId()));
+			for(int i = 0; i<cart.getAmount(); i++){
+				cartBook.add(bookService.findBookById(cart.getBookId()));
+			}
 		}
         return cartBook;
     }
-    //购物车结算
-//    @RequestMapping("order.do")
-//    public void orders(BigDecimal amount, HttpSession hs){
-//        User user = (User)hs.getAttribute("user");
-//        ArrayList<Book> Carts = (ArrayList<Book>)hs.getAttribute("Carts");
-//        int uid = user.getUid();
-//        int number = Carts.size();
-//        manageOrder.addOrders(uid,number,amount);
-//        manageOrder.addOrder(Carts,user.getUid());
-//    }
 }

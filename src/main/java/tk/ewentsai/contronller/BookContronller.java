@@ -32,11 +32,13 @@ public class BookContronller {
     public List<Book> search(String searchText) {
         return bookService.findBookByBookName(searchText);
     }
+
     //根据id进行搜索
     @RequestMapping("/api/Book/searchBook")
     public Book search(int id) {
         return bookService.findBookById(id);
     }
+
     //分页显示书本
     @RequestMapping("/api/Book/pagination")
     public List pagination(String paginationClass, @RequestParam(value = "isNextPage",defaultValue = "0") int isNextPage, HttpSession hs) {
@@ -63,7 +65,6 @@ public class BookContronller {
         //通过paginationClass来选择不同的列表
         switch (paginationClass){
             case "newBook":
-//                pageBean.setList(BookBean.paginationBook((CurrPage-1)*10));
                 pageBean.setList(bookService.paginationBook((currPage-1)*10));
                 break;
             case "eBook":

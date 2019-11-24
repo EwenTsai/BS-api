@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="tk.ewentsai.pojo.singalOrder">
+
+<mapper namespace="tk.ewentsai.dao.singalOrderDao">
+
     <resultMap id="BaseResultMap" type="tk.ewentsai.pojo.singalOrder">
         <result column="id" property="id"/>
         <result column="orderId" property="orderId"/>
@@ -14,25 +16,26 @@
         id,orderId,bookId
     </sql>
 
-    <select id="selectOrderByOrderId" parameterType="int" resultMap="BaseResultMap">
+    <select id="findOrderByOrderId" parameterType="int" resultMap="BaseResultMap">
         SELECT
+        <include refid="Base_Column_list"/>
         FROM singalOrder
         WHERE orderId = #{orderId}
     </select>
 
-    <select id="selectOrderId" parameterType="int" resultMap="BaseResultMap">
+    <select id="findOrderId" resultType="int">
         SELECT orderId
         FROM singalOrder
         WHERE bookId is NULL
     </select>
 
-    <insert id="insertOrder">
+    <insert id="addOrder" parameterType="int">
         INSERT INTO
         singalOrder (id,orderId,bookId)
         VALUES (default,#{orderId},#{bookId})
     </insert>
 
-    <delete id="deleteOrderByOrderId">
+    <delete id="removeOrderByOrderId" parameterType="int">
         DELETE FROM singalOrder
         WHERE orderId = #{orderId}
     </delete>

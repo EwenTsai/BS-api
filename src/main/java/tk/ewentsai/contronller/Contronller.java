@@ -2,23 +2,19 @@ package tk.ewentsai.contronller;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.web.bind.annotation.*;
-import tk.ewentsai.pojo.*;
 import tk.ewentsai.unit.vaildateCode;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 //
 @RestController
 public class Contronller {
+    //验证码刷新
     @RequestMapping("/api/refreshCode")
     public void refreshCode(HttpServletResponse response, HttpSession hs) throws IOException {
         response.setContentType("image/jpeg");
@@ -28,42 +24,7 @@ public class Contronller {
         ImageIO.write(vaildateCode.getBuffImg(), "jpeg", sos);
         sos.close();
     }
-//    //获取购物车信息
-//    @RequestMapping("cart.do")
-//    public List<Book> cart(HttpSession hs, @RequestParam(defaultValue = "0") int id) {
-//        ArrayList<Book> Carts = (ArrayList<Book>) hs.getAttribute("Carts");
-//        //获取当前操作购物车的用户
-//        User user = (User)hs.getAttribute("user");
-//        Carts = manageCart.manage(Carts,id,Integer.parseInt(user.getUid()));
-//        hs.setAttribute("Carts",Carts);
-//        return Carts;
-//    }
-//    //购物车结算
-//    @RequestMapping("order.do")
-//    public void orders(BigDecimal amount, HttpSession hs){
-//        User user = (User)hs.getAttribute("user");
-//        ArrayList<Book> Carts = (ArrayList<Book>)hs.getAttribute("Carts");
-//        int uid = Integer.parseInt(user.getUid());
-//        int number = Carts.size();
-//        manageOrder.addOrders(uid,number,amount);
-//        manageOrder.addOrder(Carts,Integer.parseInt(user.getUid()));
-//    }
-//    //订单删除
-//    @RequestMapping("removeOrder.do")
-//    public void removeOrder(int orderId){
-//
-//        manageOrder.removeOrderBy(orderId);
-//    }
-//    //订单详情信息获取
-//    @RequestMapping("orderDetail.do")
-//    public ArrayList orderDetail(int orderId){
-//        ArrayList<singalOrder> singalOrder = manageOrder.getOrderByOrderId(orderId);
-//        Orders orders = manageOrder.getOrdersByOrderId(orderId);
-//        ArrayList result = new ArrayList();
-//        result.add(orders);
-//        result.add(singalOrder);
-//        return result;
-//    }
+    //下载资源
     @RequestMapping("/api/download")
     public void download(String fileName, HttpServletResponse response, HttpServletRequest request) throws IOException{
         System.out.println(fileName);

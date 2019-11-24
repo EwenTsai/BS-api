@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="tk.ewentsai.pojo.Orders">
-    <resultMap id="BaseResultMap" type="tk.ewentsai.pojo.Book">
+
+<mapper namespace="tk.ewentsai.dao.OrdersDao">
+
+    <resultMap id="BaseResultMap" type="tk.ewentsai.pojo.Orders">
         <result column="id" property="id"/>
         <result column="uid" property="uid"/>
         <result column="number" property="number"/>
@@ -29,27 +31,27 @@
         WHERE uid = #{uid}
     </select>
 
-    <select id="findOrdersByOrderId">
+    <select id="findOrdersByOrderId" parameterType="int" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_list"/>
         FROM orders
         WHERE id = #{orderId}
     </select>
 
-    <select id="paginationOrders">
+    <select id="paginationOrders" parameterType="int" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_list"/>
         FROM orders
         limit #{id},10
     </select>
 
-    <insert id="addOrder">
+    <insert id="addOrder" parameterType="int">
         INSERT INTO
         orders (id,uid,number,amount,createTime)
         VALUES (default,#{uid},#{number},#{amount},now())
     </insert>
 
-    <delete id="removeOrderById">
+    <delete id="removeOrderById" parameterType="int">
         DELETE
         FROM orders
         WHERE id = #{id}
