@@ -14,6 +14,8 @@
 使用Spring boot 微服务框架
 
 #### version 1.1
-前端使用jQuery,优化前端JavaScript代码
+前端使用vue.js框架
+
+用vue.router重新构建前端页面
 
 使用localstroage 解决数据库io速度和前端页面加载速度不匹配问题，实现数据实时同步
