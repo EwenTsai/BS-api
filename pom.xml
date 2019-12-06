@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>tk.ewentsai</groupId>
 	<artifactId>BTS</artifactId>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>BS-api</name>
 	<description>online BookShop</description>
 
@@ -72,12 +72,12 @@
 			<version>2.5</version>
 		</dependency>
 		<!-- 添加热部署 -->
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-devtools</artifactId>-->
-<!--			<optional>true</optional>-->
-<!--			<scope>true</scope>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+			<scope>true</scope>
+		</dependency>
 		<!-- 添加servlet-api的依赖 -->
 <!--		<dependency>-->
 <!--			<groupId>org.apache.tomcat</groupId>-->

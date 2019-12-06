@@ -15,6 +15,4 @@ public class loginInfoVo {
 
     @NotNull(message = "验证吗不允许为空")
     private String vaildateCode;
-
-    private int isRemeberMe;
 }
