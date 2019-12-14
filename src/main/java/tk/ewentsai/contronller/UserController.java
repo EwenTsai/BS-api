@@ -6,6 +6,7 @@ import tk.ewentsai.Result.Result;
 import tk.ewentsai.Result.ResultFactory;
 import tk.ewentsai.pojo.User;
 import tk.ewentsai.pojo.vo.loginInfoVo;
+import tk.ewentsai.pojo.vo.registerInfoVo;
 import tk.ewentsai.serves.CartService;
 import tk.ewentsai.serves.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import javax.validation.Valid;
 import java.util.Enumeration;
 
 @RestController
+@CrossOrigin(allowCredentials = "true")//允许请求带上cookie
 public class UserController {
 
     private final UserService userService;
@@ -28,16 +30,14 @@ public class UserController {
         this.userService = userService;
         this.cartService = cartService;
     }
-
-    @GetMapping("/api/user")
-    public User findOneUser(String uname){
-        System.out.println("here");
-        return userService.findUserByUname(uname);
-    }
     //登陆
-    @CrossOrigin(allowCredentials = "true")//允许请求带上cookie
     @RequestMapping(value = "/api/user/login",produces = {"application/json;charset=UTF-8"})
     public Result login(@Valid @RequestBody loginInfoVo loginInfoVo, HttpSession hs, HttpServletResponse response, BindingResult bindingResult){
+        //检验输入信息为空的情况
+        if (bindingResult.hasErrors()) {
+            String message = String.format("登陆失败，详细信息[%s]。", bindingResult.getFieldError().getDefaultMessage());
+            return ResultFactory.buildFailResult(message);
+        }
         //检查验证码
         if(!vaildateCode.checkCode((String) hs.getAttribute("vaildateCode"),loginInfoVo.getVaildateCode())){
             return ResultFactory.buildFailResult("验证码错误");
@@ -53,7 +53,7 @@ public class UserController {
         //设置cookies存活时间
         cookie.setMaxAge(3*24*3600);
         //设置cookie的路径，cookie的访问有路径限制
-        cookie.setPath("/BTS");
+        cookie.setPath("/");
         response.addCookie(cookie);
         //将用户购物车的信息放入session中
         hs.setAttribute("Carts", cartService.findCartByUid(user.getUid()));
@@ -62,36 +62,38 @@ public class UserController {
 
     //注册
     @RequestMapping(value = "/api/user/register",produces = {"application/json;charset=UTF-8"})
-    public String register(String uname, String pwd, String VaildateCode, HttpSession hs) {
-        String returnString;
-        //再次检查验证码
-        if(vaildateCode.checkCode((String) hs.getAttribute("vaildateCode"),VaildateCode)){
-            //检查用户名是否已存在
-//            User user = manageUser.checkUname(uname,pwd);
-            User user = userService.findUserByUname(uname);
-            if(user==null){
-                //不存在同名的用户名，进行注册
-                userService.addUser(uname,pwd);
-                returnString = "isRegisterSuccess";
-            }else{
-                //存在同名的用户名
-                returnString = "此用户名已经被注册";
-            }
-        }else{
-            returnString = "验证码错误";
+    public Result register(@Valid @RequestBody registerInfoVo registerInfoVo, HttpSession hs, BindingResult bindingResult) {
+        //检验输入信息为空的情况
+        if (bindingResult.hasErrors()) {
+            String message = String.format("登陆失败，详细信息[%s]。", bindingResult.getFieldError().getDefaultMessage());
+            return ResultFactory.buildFailResult(message);
         }
-        return returnString;
+        //检查验证码
+        if(!vaildateCode.checkCode((String) hs.getAttribute("vaildateCode"),registerInfoVo.getVaildateCode())){
+            return ResultFactory.buildFailResult("验证码错误");
+        }
+        //检查用户名是否已存在
+        User user = userService.findUserByUname(registerInfoVo.getUname());
+        //存在同名的用户名
+        if(user!=null) {
+            return ResultFactory.buildFailResult("此用户名已经被注册");
+        }
+        //不存在同名的用户名，进行注册
+        userService.addUser(registerInfoVo.getUname(),registerInfoVo.getPwd());
+        return ResultFactory.buildSuccessResult("注册成功。");
     }
     //使用cookie实现免登录
     @RequestMapping("/api/user/check")
-    public User check(int uid,HttpSession hs) {
+    public Result check(int uid,HttpSession hs) {
         User user = userService.findUserByUid(uid);
-        if(user!=null){
-            //将user的信息放入session中
-            hs.setAttribute("user", user);
-            //将用户购物车的信息放入session中
-            hs.setAttribute("Carts", cartService.findCartByUid(user.getUid()));
+        //无此uid用户
+        if(user==null){
+            return ResultFactory.buildFailResult("无此用户");
         }
-        return user;
+        //将user的信息放入session中
+        hs.setAttribute("user", user);
+        //将用户购物车的信息放入session中
+        hs.setAttribute("Carts", cartService.findCartByUid(user.getUid()));
+        return ResultFactory.buildSuccessResult(user);
     }
 }

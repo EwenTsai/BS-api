@@ -1,5 +1,6 @@
 package tk.ewentsai.contronller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tk.ewentsai.pojo.Cart;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 @RestController
+@CrossOrigin(allowCredentials = "true")//允许请求带上cookie
 public class OrdersContronller {
 
     private final OrdersService ordersService;
@@ -55,9 +57,8 @@ public class OrdersContronller {
     public ArrayList orderDetail(int orderId){
         ArrayList<singalOrder> singalOrder = singalOrderService.findOrderByOrderId(orderId);
         Orders order = ordersService.findOrdersByOrderId(orderId);
-        ArrayList result = new ArrayList();
+        ArrayList result = new ArrayList(singalOrder);
         result.add(order);
-        result.add(singalOrder);
         return result;
     }
 
@@ -67,4 +68,8 @@ public class OrdersContronller {
         singalOrderService.removeOrderByOrderId(orderId);
         ordersService.removeOrderById(orderId);
     }
+
+    //通过用户的uid来获取订单信息
+    @RequestMapping("/api/Order")
+    public ArrayList<Orders> orders(int uid){ return ordersService.findOrdersByUid(uid); }
 }
