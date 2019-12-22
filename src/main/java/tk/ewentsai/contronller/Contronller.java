@@ -3,7 +3,7 @@ package tk.ewentsai.contronller;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import tk.ewentsai.pojo.PageBean;
+import tk.ewentsai.model.pojo.PageBean;
 import tk.ewentsai.serves.BookService;
 import tk.ewentsai.serves.OrdersService;
 import tk.ewentsai.serves.eBookService;
@@ -21,17 +21,13 @@ import java.util.List;
 @RestController
 @CrossOrigin(allowCredentials = "true")//允许请求带上cookie
 public class Contronller {
-
-    private final BookService bookService;
-    private final tk.ewentsai.serves.eBookService eBookService;
-    private final OrdersService ordersService;
-
     @Autowired
-    public Contronller(BookService bookService, tk.ewentsai.serves.eBookService eBookService, OrdersService ordersService) {
-        this.bookService = bookService;
-        this.eBookService = eBookService;
-        this.ordersService = ordersService;
-    }
+    private BookService bookService;
+    @Autowired
+    private eBookService eBookService;
+    @Autowired
+    private OrdersService ordersService;
+
 
     //验证码刷新
     @CrossOrigin
@@ -64,6 +60,7 @@ public class Contronller {
     public List pagination(@RequestParam("paginationClass") String paginationClass, @RequestParam(value = "isNextPage",defaultValue = "0") int isNextPage, HttpSession hs) {
         //当前页数默认为第一页
         int currPage = 1;
+
         //根据商品类型得到总页数，并记录在session中
         PageBean pageBean = new PageBean<>(bookService.findAllBook().size());
         hs.setAttribute("totalPage",pageBean.getTotalPage());

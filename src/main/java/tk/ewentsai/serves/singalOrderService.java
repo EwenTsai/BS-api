@@ -1,7 +1,7 @@
 package tk.ewentsai.serves;
 
 import org.apache.ibatis.annotations.Param;
-import tk.ewentsai.pojo.singalOrder;
+import tk.ewentsai.model.pojo.singalOrder;
 
 import java.util.ArrayList;
 

@@ -1,38 +1,40 @@
 package tk.ewentsai.contronller;
 
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import sun.security.util.Resources_ja;
 import tk.ewentsai.Result.Result;
 import tk.ewentsai.Result.ResultFactory;
-import tk.ewentsai.pojo.User;
-import tk.ewentsai.pojo.vo.loginInfoVo;
-import tk.ewentsai.pojo.vo.registerInfoVo;
+import tk.ewentsai.exception.UnauthorizedException;
+import tk.ewentsai.model.pojo.User;
+import tk.ewentsai.model.vo.loginInfoVo;
+import tk.ewentsai.model.vo.registerInfoVo;
 import tk.ewentsai.serves.CartService;
 import tk.ewentsai.serves.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import tk.ewentsai.unit.JwtUtil;
 import tk.ewentsai.unit.vaildateCode;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.Enumeration;
 
 @RestController
 @CrossOrigin(allowCredentials = "true")//允许请求带上cookie
 public class UserController {
-
-    private final UserService userService;
-    private final CartService cartService;
-
     @Autowired
-    public UserController(UserService userService, CartService cartService){
-        this.userService = userService;
-        this.cartService = cartService;
-    }
+    private UserService userService;
+    @Autowired
+    private CartService cartService;
+
     //登陆
     @RequestMapping(value = "/api/user/login",produces = {"application/json;charset=UTF-8"})
-    public Result login(@Valid @RequestBody loginInfoVo loginInfoVo, HttpSession hs, HttpServletResponse response, BindingResult bindingResult){
+    public Result login(@Valid @RequestBody loginInfoVo loginInfoVo,
+                        HttpSession hs,
+                        HttpServletResponse response,
+                        BindingResult bindingResult){
         //检验输入信息为空的情况
         if (bindingResult.hasErrors()) {
             String message = String.format("登陆失败，详细信息[%s]。", bindingResult.getFieldError().getDefaultMessage());
@@ -43,11 +45,9 @@ public class UserController {
             return ResultFactory.buildFailResult("验证码错误");
         }
         //检查用户名和密码是否正确
-        User user = userService.findUserByUname(loginInfoVo.getUname());
-        if(user==null || !user.getPwd().equals(loginInfoVo.getPwd())){
-            return ResultFactory.buildFailResult("用户名或密码错误");
-        }
-        //将登陆信息写入浏览器端端cookie和服务器端端session
+        if(userService.login(loginInfoVo.getUname(),loginInfoVo.getPwd())){
+//            return ResultFactory.buildSuccessResult(JwtUtil.sign(loginInfoVo.getUname(),loginInfoVo.getPwd()));
+        // 将登陆信息写入浏览器端端cookie和服务器端端session
         hs.setAttribute("user", user);
         Cookie cookie = new Cookie("uid", user.getUid()+"");
         //设置cookies存活时间
@@ -58,8 +58,10 @@ public class UserController {
         //将用户购物车的信息放入session中
         hs.setAttribute("Carts", cartService.findCartByUid(user.getUid()));
         return ResultFactory.buildSuccessResult("登陆成功。");
+        }else{
+            throw new UnauthorizedException("用户名或密码错误");
+        }
     }
-
     //注册
     @RequestMapping(value = "/api/user/register",produces = {"application/json;charset=UTF-8"})
     public Result register(@Valid @RequestBody registerInfoVo registerInfoVo, HttpSession hs, BindingResult bindingResult) {

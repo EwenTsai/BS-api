@@ -39,7 +39,7 @@ Axios|前端HTTP框架|0.14.0
 工具|说明|官网
 --|:--:|--:
 IDEA|开发IDE|https://www.jetbrains.com/idea/download
-HBilderX|前端开发工具|https://www.dcloud.io/hbuilderx.html
+HBuilderX|前端开发工具|https://www.dcloud.io/hbuilderx.html
 Navicat|数据库连接工具|http://www.formysql.com/xiazai.html
 #### 开发环境
 工具|版本号|官网

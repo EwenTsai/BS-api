@@ -2,8 +2,8 @@ package tk.ewentsai.serves.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tk.ewentsai.dao.singalOrderDao;
-import tk.ewentsai.pojo.singalOrder;
+import tk.ewentsai.model.dao.singalOrderDao;
+import tk.ewentsai.model.pojo.singalOrder;
 import tk.ewentsai.serves.singalOrderService;
 
 import java.util.ArrayList;

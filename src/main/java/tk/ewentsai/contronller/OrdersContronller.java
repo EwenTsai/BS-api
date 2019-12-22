@@ -1,12 +1,13 @@
 package tk.ewentsai.contronller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tk.ewentsai.pojo.Cart;
-import tk.ewentsai.pojo.Orders;
-import tk.ewentsai.pojo.User;
-import tk.ewentsai.pojo.singalOrder;
+import tk.ewentsai.model.pojo.Cart;
+import tk.ewentsai.model.pojo.Orders;
+import tk.ewentsai.model.pojo.User;
+import tk.ewentsai.model.pojo.singalOrder;
 import tk.ewentsai.serves.CartService;
 import tk.ewentsai.serves.OrdersService;
 import tk.ewentsai.serves.singalOrderService;
@@ -17,16 +18,12 @@ import java.util.ArrayList;
 @RestController
 @CrossOrigin(allowCredentials = "true")//允许请求带上cookie
 public class OrdersContronller {
-
-    private final OrdersService ordersService;
-    private final singalOrderService singalOrderService;
-    private final CartService cartService;
-
-    public OrdersContronller(OrdersService ordersService, tk.ewentsai.serves.singalOrderService singalOrderService, CartService cartService) {
-        this.ordersService = ordersService;
-        this.singalOrderService = singalOrderService;
-        this.cartService = cartService;
-    }
+    @Autowired
+    private OrdersService ordersService;
+    @Autowired
+    private singalOrderService singalOrderService;
+    @Autowired
+    private CartService cartService;
 
     //购物车结算
     @RequestMapping("/api/Order/settle")

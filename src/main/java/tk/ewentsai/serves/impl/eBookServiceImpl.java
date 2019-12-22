@@ -2,8 +2,8 @@ package tk.ewentsai.serves.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tk.ewentsai.dao.eBookDao;
-import tk.ewentsai.pojo.eBook;
+import tk.ewentsai.model.dao.eBookDao;
+import tk.ewentsai.model.pojo.eBook;
 import tk.ewentsai.serves.eBookService;
 
 import java.util.ArrayList;

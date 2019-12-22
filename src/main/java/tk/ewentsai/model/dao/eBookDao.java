@@ -1,7 +1,7 @@
-package tk.ewentsai.dao;
+package tk.ewentsai.model.dao;
 
 import org.springframework.stereotype.Repository;
-import tk.ewentsai.pojo.eBook;
+import tk.ewentsai.model.pojo.eBook;
 
 import java.util.ArrayList;
 

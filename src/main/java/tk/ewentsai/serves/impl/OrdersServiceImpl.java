@@ -2,8 +2,8 @@ package tk.ewentsai.serves.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tk.ewentsai.dao.OrdersDao;
-import tk.ewentsai.pojo.Orders;
+import tk.ewentsai.model.dao.OrdersDao;
+import tk.ewentsai.model.pojo.Orders;
 import tk.ewentsai.serves.OrdersService;
 
 import java.math.BigDecimal;

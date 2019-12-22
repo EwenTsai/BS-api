@@ -1,7 +1,7 @@
 package tk.ewentsai.serves;
 
 import org.apache.ibatis.annotations.Param;
-import tk.ewentsai.pojo.Orders;
+import tk.ewentsai.model.pojo.Orders;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

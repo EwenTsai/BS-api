@@ -1,31 +1,28 @@
 package tk.ewentsai.contronller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import tk.ewentsai.pojo.Book;
-import tk.ewentsai.pojo.Cart;
-import tk.ewentsai.pojo.User;
+import tk.ewentsai.model.pojo.Book;
+import tk.ewentsai.model.pojo.Cart;
+import tk.ewentsai.model.pojo.User;
 import tk.ewentsai.serves.BookService;
 import tk.ewentsai.serves.CartService;
 
 import javax.servlet.http.HttpSession;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @CrossOrigin(allowCredentials = "true")//允许请求带上cookie
 public class CartContronller {
+	@Autowired
+    private CartService cartService;
+	@Autowired
+    private BookService bookService;
 
-    private final CartService cartService;
-    private final BookService bookService;
-
-    public CartContronller(CartService cartService, BookService bookService) {
-        this.cartService = cartService;
-        this.bookService = bookService;
-    }
 
     //购物车信息修改
 	//存在线程安全安全问题

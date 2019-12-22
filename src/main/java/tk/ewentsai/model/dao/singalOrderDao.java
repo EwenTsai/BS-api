@@ -1,8 +1,8 @@
-package tk.ewentsai.dao;
+package tk.ewentsai.model.dao;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-import tk.ewentsai.pojo.singalOrder;
+import tk.ewentsai.model.pojo.singalOrder;
 
 import java.util.ArrayList;
 

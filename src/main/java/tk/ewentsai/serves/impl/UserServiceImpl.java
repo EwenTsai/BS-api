@@ -1,7 +1,7 @@
 package tk.ewentsai.serves.impl;
 
-import tk.ewentsai.dao.UserDao;
-import tk.ewentsai.pojo.User;
+import tk.ewentsai.model.dao.UserDao;
+import tk.ewentsai.model.pojo.User;
 import tk.ewentsai.serves.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,9 +13,10 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public User findUserByUname(String uname) {
-        return userDao.findUserByName(uname);
-    }
+    public User findUserByUname(String uname) { return userDao.findUserByName(uname); }
+
+    @Override
+    public boolean login(String uname,String password) { return null!=userDao.findUserByNameAndPwd(uname,password); }
 
     @Override
     public User findUserByUid(int uid) {

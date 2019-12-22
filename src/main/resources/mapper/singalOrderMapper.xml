@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="tk.ewentsai.dao.singalOrderDao">
+<mapper namespace="tk.ewentsai.model.dao.singalOrderDao">
 
-    <resultMap id="BaseResultMap" type="tk.ewentsai.pojo.singalOrder">
+    <resultMap id="BaseResultMap" type="tk.ewentsai.model.pojo.singalOrder">
         <result column="id" property="id"/>
         <result column="orderId" property="orderId"/>
         <result column="bookId" property="bookId"/>
     </resultMap>
 
-    <parameterMap id="singalOrder" type="tk.ewentsai.pojo.singalOrder"/>
+    <parameterMap id="singalOrder" type="tk.ewentsai.model.pojo.singalOrder"/>
 
     <sql id="Base_Column_list">
         id,orderId,bookId

@@ -2,8 +2,8 @@ package tk.ewentsai.serves.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tk.ewentsai.dao.CartDao;
-import tk.ewentsai.pojo.Cart;
+import tk.ewentsai.model.dao.CartDao;
+import tk.ewentsai.model.pojo.Cart;
 import tk.ewentsai.serves.CartService;
 
 import java.util.ArrayList;

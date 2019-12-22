@@ -1,7 +1,7 @@
 package tk.ewentsai.serves;
 
 import org.apache.ibatis.annotations.Param;
-import tk.ewentsai.pojo.Cart;
+import tk.ewentsai.model.pojo.Cart;
 
 import java.util.ArrayList;
 

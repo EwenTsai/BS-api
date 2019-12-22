@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="tk.ewentsai.dao.eBookDao">
+<mapper namespace="tk.ewentsai.model.dao.eBookDao">
 
-    <resultMap id="BaseResultMap" type="tk.ewentsai.pojo.eBook">
+    <resultMap id="BaseResultMap" type="tk.ewentsai.model.pojo.eBook">
         <result column="id" property="id"/>
         <result column="bookname" property="bookname"/>
         <result column="downloadlink" property="downloadLink"/>
     </resultMap>
 
-    <parameterMap id="eBook" type="tk.ewentsai.pojo.eBook"/>
+    <parameterMap id="eBook" type="tk.ewentsai.model.pojo.eBook"/>
 
     <sql id="Base_Column_list">
         id,bookname,downloadLink

@@ -1,4 +1,4 @@
-package tk.ewentsai.pojo;
+package tk.ewentsai.model.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

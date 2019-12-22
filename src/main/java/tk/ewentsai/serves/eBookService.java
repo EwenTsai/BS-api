@@ -1,6 +1,6 @@
 package tk.ewentsai.serves;
 
-import tk.ewentsai.pojo.eBook;
+import tk.ewentsai.model.pojo.eBook;
 
 import java.util.ArrayList;
 

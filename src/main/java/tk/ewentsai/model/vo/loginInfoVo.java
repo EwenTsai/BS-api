@@ -1,4 +1,4 @@
-package tk.ewentsai.pojo.vo;
+package tk.ewentsai.model.vo;
 
 import lombok.Data;
 
