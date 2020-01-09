@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tk.ewentsai.dao.UserDao">
+
+    <resultMap id="BaseResultMap" type="tk.ewentsai.pojo.User">
+        <result column="uid" property="uid" />
+        <result column="uname" property="uname" />
+        <result column="pwd" property="pwd" />
+        <result column="age" property="age" />
+        <result column="birthday" property="birthday" />
+        <result column="imageAdress" property="imageAdress" />
+    </resultMap>
+
+    <parameterMap id="User" type="tk.ewentsai.pojo.User"/>
+
+    <sql id="Base_Column_list">
+        uid,uname,pwd,age,birthday,imageAdress
+    </sql>
+
+    <select id="findUserByName" parameterType="String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_list"/>
+        FROM users
+        WHERE uname = #{name}
+    </select>
+
+    <select id="findUserByUid" parameterType="int" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_list"/>
+        FROM users
+        WHERE uid = #{uid}
+    </select>
+
+    <insert id="addUser" parameterType="String">
+        INSERT INTO
+        users (uid,uname,pwd,age,birthday,imageAdress)
+        VALUES (default,#{uname},#{pwd},0,now(),'images/0.jpg')
+    </insert>
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tk.ewentsai.dao.BookDao">
+
+    <resultMap id="BaseResultMap" type="tk.ewentsai.pojo.Book">
+        <result column="id" property="id"/>
+        <result column="bookname" property="bookname"/>
+        <result column="author" property="author"/>
+        <result column="releaseTime" property="releaseTime"/>
+        <result column="intro" property="intro"/>
+        <result column="price" property="price"/>
+        <result column="rate" property="rate"/>
+        <result column="aboutAuthor" property="aboutAuthor"/>
+    </resultMap>
+
+    <parameterMap id="Book" type="tk.ewentsai.pojo.Book"/>
+
+    <sql id="Base_Column_list">
+        id,bookname,author,releaseTime,intro,price,rate,aboutAuthor
+    </sql>
+
+    <select id="findAllBook" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_list"/>
+        FROM books
+    </select>
+
+    <select id="findBookByBookName" parameterType="String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_list"/>
+        FROM books
+        WHERE bookname
+        LIKE CONCAT(CONCAT('%', #{bookname}), '%')
+    </select>
+
+    <select id="paginationBook" parameterType="int" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_list"/>
+        FROM books
+        limit #{id},10
+    </select>
+
+    <select id="findBookById" parameterType="int" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_list"/>
+        FROM books
+        where id = #{id}
+    </select>
+</mapper>
