@@ -3,7 +3,6 @@ package tk.ewentsai.contronller;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import tk.ewentsai.model.pojo.PageBean;
 import tk.ewentsai.serves.BookService;
 import tk.ewentsai.serves.OrdersService;
 import tk.ewentsai.serves.eBookService;
@@ -53,44 +52,5 @@ public class Contronller {
         os.write(bytes);
         os.flush();
         os.close();
-    }
-
-    //分页显示
-    @RequestMapping("/api/pagination")
-    public List pagination(@RequestParam("paginationClass") String paginationClass, @RequestParam(value = "isNextPage",defaultValue = "0") int isNextPage, HttpSession hs) {
-        //当前页数默认为第一页
-        int currPage = 1;
-
-        //根据商品类型得到总页数，并记录在session中
-        PageBean pageBean = new PageBean<>(bookService.findAllBook().size());
-        hs.setAttribute("totalPage",pageBean.getTotalPage());
-        hs.setAttribute("paginationClass",paginationClass);
-        //根据isNextPage来判断上下页  1为下一页  0返回第一页  —1为下一页
-        switch (isNextPage){
-            case 1:
-                currPage = (int) hs.getAttribute("currPage");
-                currPage+=1;
-                break;
-            case 0:
-                currPage = 1;
-                break;
-            case -1:
-                currPage = (int) hs.getAttribute("currPage");
-                currPage-=1;
-                break;
-        }
-        //通过paginationClass来选择不同的列表
-        switch (paginationClass){
-            case "newBook":
-                pageBean.setList(bookService.paginationBook((currPage-1)*10));
-                break;
-            case "eBook":
-                pageBean.setList(eBookService.paginationBook((currPage-1)*10));
-                break;
-            case "orders":
-                pageBean.setList(ordersService.paginationOrders((currPage-1)*10));
-        }
-        hs.setAttribute("currPage",currPage);
-        return pageBean.getList();
     }
 }

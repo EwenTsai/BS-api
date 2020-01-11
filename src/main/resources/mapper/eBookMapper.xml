@@ -19,13 +19,7 @@
     <select id="selAll" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_list"/>
-        FROM books
+        FROM eBooks
     </select>
 
-    <select id="paginationBook" parameterType="int" resultMap="BaseResultMap">
-        SELECT
-        <include refid="Base_Column_list"/>
-        FROM eBooks
-        limit #{id},10
-    </select>
 </mapper>

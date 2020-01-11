@@ -30,13 +30,6 @@ public interface OrdersDao {
     Orders findOrdersByOrderId(int orderId);
 
     /**
-     * 分页显示
-     * @param id
-     * @return
-     */
-    ArrayList<Orders> paginationOrders(int id);
-
-    /**
      * 添加订单
      * @param uid
      * @param number

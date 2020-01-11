@@ -38,13 +38,6 @@
         WHERE id = #{orderId}
     </select>
 
-    <select id="paginationOrders" parameterType="int" resultMap="BaseResultMap">
-        SELECT
-        <include refid="Base_Column_list"/>
-        FROM orders
-        limit #{id},10
-    </select>
-
     <insert id="addOrder" parameterType="int">
         INSERT INTO
         orders (id,uid,number,amount,createTime)

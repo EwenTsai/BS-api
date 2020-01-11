@@ -14,36 +14,40 @@
 ```
 tk.ewentsai
 |——contronller 控制层
-|——dao dao层 数据库操作
-|——pojo 实体类
+|——model 数据
+|——exception 异常处理
 |——util 工具类
 |——service 数据库接口
-|——Result 返回数据
+|——Result 统一返回数据格式
 ```
 
 ### 技术选型
 #### 后端技术
 技术|说明|版本
---|:--:|--:
+:--:|:--:|:--:
 SpringBoot|容器+MVC|2.2.1.RELEASE
 MyBatis|ORM框架|2.1.1
 MySQL|数据库|5.7
 Lombok|简化封装对象工具|1.18.10
+PageHelper|MyBatis分页插件|1.2.5
 #### 前端技术
 技术|说明|版本
---|:--:|--:
+:--:|:--:|:--:
 Vue|前端框架|2.0
 Vue-router|路由框架|3.0
 Axios|前端HTTP框架|0.14.0
 #### 开发工具
 工具|说明|官网
---|:--:|--:
+:--:|:--:|:--:
 IDEA|开发IDE|https://www.jetbrains.com/idea/download
-HBuilderX|前端开发工具|https://www.dcloud.io/hbuilderx.html
+Visual studio code|前端开发工具|https://code.visualstudio.com
 Navicat|数据库连接工具|http://www.formysql.com/xiazai.html
 #### 开发环境
 工具|版本号|官网
---|:--:|--:
+:--:|:--:|:--:
 JDK|1.8|https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 MySQL|5.7|https://www.mysql.com/
 Nginx|1.10|http://nginx.org/en/download.html
+
+#### 开发进程
+项目持续完善中......

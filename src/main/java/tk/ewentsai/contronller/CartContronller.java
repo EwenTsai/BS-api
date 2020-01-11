@@ -1,5 +1,7 @@
 package tk.ewentsai.contronller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,4 +72,11 @@ public class CartContronller {
 		}
         return cartBook;
     }
+    @RequestMapping("api/Cart")
+	public PageInfo<Cart> pagination(HttpSession hs, @RequestParam(defaultValue = "1") Integer pageNum){
+		User user = (User)hs.getAttribute("user");
+		PageHelper.startPage(pageNum,10);
+		PageInfo<Cart> pageInfo = new PageInfo<>(cartService.findCartByUid(user.getUid()));
+		return pageInfo;
+	}
 }

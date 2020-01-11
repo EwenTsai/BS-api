@@ -1,5 +1,6 @@
 package tk.ewentsai.serves.impl;
 
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.ewentsai.model.dao.BookDao;
@@ -14,7 +15,7 @@ public class BookServiceImpl implements BookService {
     private BookDao bookDao;
 
     @Override
-    public ArrayList<Book> findAllBook() {
+    public Page<Book> findAllBook() {
         return bookDao.findAllBook();
     }
 
@@ -23,10 +24,6 @@ public class BookServiceImpl implements BookService {
         return bookDao.findBookByBookName(bookname);
     }
 
-    @Override
-    public ArrayList<Book> paginationBook(int id) {
-        return bookDao.paginationBook(id);
-    }
 
     @Override
     public Book findBookById(int id) {

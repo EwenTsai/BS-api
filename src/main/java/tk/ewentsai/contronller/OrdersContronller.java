@@ -1,13 +1,14 @@
 package tk.ewentsai.contronller;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import tk.ewentsai.model.pojo.Cart;
-import tk.ewentsai.model.pojo.Orders;
-import tk.ewentsai.model.pojo.User;
-import tk.ewentsai.model.pojo.singalOrder;
+import tk.ewentsai.model.pojo.*;
 import tk.ewentsai.serves.CartService;
 import tk.ewentsai.serves.OrdersService;
 import tk.ewentsai.serves.singalOrderService;
@@ -67,6 +68,12 @@ public class OrdersContronller {
     }
 
     //通过用户的uid来获取订单信息
+    //分页显示
     @RequestMapping("/api/Order")
-    public ArrayList<Orders> orders(int uid){ return ordersService.findOrdersByUid(uid); }
+    public PageInfo<Orders> orders(@RequestParam(defaultValue = "1") int pageNum, HttpSession hs){
+        int uid = ((User)hs.getAttribute("user")).getUid();
+        PageHelper.startPage(pageNum,10);
+        PageInfo<Orders> pageInfo = new PageInfo<>(ordersService.findOrdersByUid(uid));
+        return pageInfo;
+    }
 }

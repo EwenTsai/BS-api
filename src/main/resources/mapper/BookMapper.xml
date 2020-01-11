@@ -35,13 +35,6 @@
         LIKE CONCAT(CONCAT('%', #{bookname}), '%')
     </select>
 
-    <select id="paginationBook" parameterType="int" resultMap="BaseResultMap">
-        SELECT
-        <include refid="Base_Column_list"/>
-        FROM books
-        limit #{id},10
-    </select>
-
     <select id="findBookById" parameterType="int" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_list"/>

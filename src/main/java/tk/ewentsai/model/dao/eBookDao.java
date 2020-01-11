@@ -1,6 +1,8 @@
 package tk.ewentsai.model.dao;
 
+import com.github.pagehelper.Page;
 import org.springframework.stereotype.Repository;
+import tk.ewentsai.model.pojo.Book;
 import tk.ewentsai.model.pojo.eBook;
 
 import java.util.ArrayList;
@@ -11,12 +13,5 @@ public interface eBookDao {
      * 从数据库中查询搜索书籍
      * @return
      */
-    ArrayList<eBook> selAll();
-
-    /**
-     * 分页显示
-     * @param id
-     * @return
-     */
-    ArrayList<eBook> paginationBook(int id);
+    Page<eBook> selAll();
 }

@@ -1,9 +1,7 @@
 package tk.ewentsai.contronller;
 
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import sun.security.util.Resources_ja;
 import tk.ewentsai.Result.Result;
 import tk.ewentsai.Result.ResultFactory;
 import tk.ewentsai.exception.UnauthorizedException;
@@ -46,18 +44,18 @@ public class UserController {
         }
         //检查用户名和密码是否正确
         if(userService.login(loginInfoVo.getUname(),loginInfoVo.getPwd())){
-//            return ResultFactory.buildSuccessResult(JwtUtil.sign(loginInfoVo.getUname(),loginInfoVo.getPwd()));
-        // 将登陆信息写入浏览器端端cookie和服务器端端session
-//        hs.setAttribute("user", user);
-//        Cookie cookie = new Cookie("uid", user.getUid()+"");
-//        //设置cookies存活时间
-//        cookie.setMaxAge(3*24*3600);
-//        //设置cookie的路径，cookie的访问有路径限制
-//        cookie.setPath("/");
-//        response.addCookie(cookie);
-//        //将用户购物车的信息放入session中
-//        hs.setAttribute("Carts", cartService.findCartByUid(user.getUid()));
-        return ResultFactory.buildSuccessResult("登陆成功。");
+            User user = userService.findUserByUname(loginInfoVo.getUname());
+            // 将登陆信息写入浏览器端端cookie和服务器端端session
+            hs.setAttribute("user", user);
+            Cookie cookie = new Cookie("uid", user.getUid()+"");
+            //设置cookies存活时间
+            cookie.setMaxAge(3*24*3600);
+            //设置cookie的路径，cookie的访问有路径限制
+            cookie.setPath("/");
+            response.addCookie(cookie);
+            //将用户购物车的信息放入session中
+            hs.setAttribute("Carts", cartService.findCartByUid(user.getUid()));
+            return ResultFactory.buildSuccessResult("登陆成功。");
         }else{
             throw new UnauthorizedException("用户名或密码错误");
         }

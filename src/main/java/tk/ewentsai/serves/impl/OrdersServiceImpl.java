@@ -29,11 +29,6 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public ArrayList<Orders> paginationOrders(int id) {
-        return ordersDao.paginationOrders(id);
-    }
-
-    @Override
     public void addOrder(int uid, int number, BigDecimal amount) {
         ordersDao.addOrder(uid,number,amount);
     }
