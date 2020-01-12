@@ -11,12 +11,14 @@
         <result column="age" property="age" />
         <result column="birthday" property="birthday" />
         <result column="imageAdress" property="imageAdress" />
+        <result column="role" property="role" />
+        <result column="permission" property="permission" />
     </resultMap>
 
     <parameterMap id="User" type="tk.ewentsai.model.pojo.User"/>
 
     <sql id="Base_Column_list">
-        uid,uname,pwd,age,birthday,imageAdress
+        uid,uname,pwd,age,birthday,imageAdress,role,permission
     </sql>
 
     <select id="findUserByNameAndPwd" parameterType="String" resultMap="BaseResultMap">

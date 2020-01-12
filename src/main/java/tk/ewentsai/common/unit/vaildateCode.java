@@ -1,4 +1,4 @@
-package tk.ewentsai.unit;
+package tk.ewentsai.common.unit;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

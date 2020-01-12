@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import tk.ewentsai.serves.BookService;
 import tk.ewentsai.serves.OrdersService;
 import tk.ewentsai.serves.eBookService;
-import tk.ewentsai.unit.vaildateCode;
+import tk.ewentsai.common.unit.vaildateCode;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -15,10 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 @RestController
-@CrossOrigin(allowCredentials = "true")//允许请求带上cookie
 public class Contronller {
     @Autowired
     private BookService bookService;

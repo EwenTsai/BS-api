@@ -1,4 +1,4 @@
-package tk.ewentsai.Result;
+package tk.ewentsai.common.Result;
 
 public enum  ResultCode {
     /**

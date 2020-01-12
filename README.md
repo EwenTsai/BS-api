@@ -30,6 +30,8 @@ MyBatis|ORM框架|2.1.1
 MySQL|数据库|5.7
 Lombok|简化封装对象工具|1.18.10
 PageHelper|MyBatis分页插件|1.2.5
+Apache shiro|安全框架|1.4.0
+JWT｜JSON WEB TOKEN｜3.2.0
 #### 前端技术
 技术|说明|版本
 :--:|:--:|:--:

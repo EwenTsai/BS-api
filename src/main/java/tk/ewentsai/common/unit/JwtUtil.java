@@ -1,4 +1,4 @@
-package tk.ewentsai.unit;
+package tk.ewentsai.common.unit;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;

@@ -1,4 +1,4 @@
-package tk.ewentsai.Result;
+package tk.ewentsai.common.Result;
 
 public class ResultFactory {
     public static Result buildSuccessResult(Object data) {
