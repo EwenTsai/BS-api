@@ -27,7 +27,6 @@ public class Contronller {
 
 
     //验证码刷新
-    @CrossOrigin
     @RequestMapping("/api/refreshCode")
     public void refreshCode(HttpServletResponse response, HttpSession hs) throws IOException {
         response.setContentType("image/jpeg");
