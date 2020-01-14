@@ -10,5 +10,5 @@ public class User {
 	private String birthday;
 	private String imageAdress;
 	private String role;
-	private String permission;
+	private int state;
 }

@@ -13,28 +13,29 @@ import java.util.ArrayList;
 public class OrdersServiceImpl implements OrdersService {
     @Autowired
     private OrdersDao ordersDao;
+
     @Override
     public ArrayList<Orders> returnAll() {
         return ordersDao.returnAll();
     }
 
     @Override
-    public ArrayList<Orders> findOrdersByUid(int uid) {
+    public ArrayList<Orders> getOrders(int uid) {
         return ordersDao.findOrdersByUid(uid);
     }
 
     @Override
-    public Orders findOrdersByOrderId(int orderId) {
+    public Orders getOrder(int orderId) {
         return ordersDao.findOrdersByOrderId(orderId);
     }
 
     @Override
-    public void addOrder(int uid, int number, BigDecimal amount) {
+    public void add(int uid, int number, BigDecimal amount) {
         ordersDao.addOrder(uid,number,amount);
     }
 
     @Override
-    public void removeOrderById(int id) {
+    public void remove(int id) {
         ordersDao.removeOrderById(id);
     }
 }

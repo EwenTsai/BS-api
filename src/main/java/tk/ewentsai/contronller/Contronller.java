@@ -1,40 +1,44 @@
 package tk.ewentsai.contronller;
 
+import com.google.code.kaptcha.impl.DefaultKaptcha;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tk.ewentsai.serves.BookService;
 import tk.ewentsai.serves.OrdersService;
 import tk.ewentsai.serves.eBookService;
-import tk.ewentsai.common.unit.vaildateCode;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
 @RestController
+@CrossOrigin(allowCredentials = "true")//允许请求带上cookie
 public class Contronller {
     @Autowired
-    private BookService bookService;
-    @Autowired
-    private eBookService eBookService;
-    @Autowired
-    private OrdersService ordersService;
+    private DefaultKaptcha defaultKaptcha;
 
-
-    //验证码刷新
-    @RequestMapping("/api/refreshCode")
-    public void refreshCode(HttpServletResponse response, HttpSession hs) throws IOException {
-        response.setContentType("image/jpeg");
-        ServletOutputStream sos = response.getOutputStream();
-        vaildateCode vaildateCode = new vaildateCode();
-        hs.setAttribute("vaildateCode",vaildateCode.getRandomCode());
-        ImageIO.write(vaildateCode.getBuffImg(), "jpeg", sos);
-        sos.close();
+    @GetMapping("/api/kaptcha")
+    public void defaultKaptcha(HttpSession hs, HttpServletResponse response) throws Exception {
+        byte[] captchaChallengeAsJpeg = null;
+        ServletOutputStream out = response.getOutputStream();
+        try {
+            // 生产验证码字符串并保存到session中
+            String createText = defaultKaptcha.createText();
+            hs.setAttribute("kaptchaCode", createText);
+            // 使用生成的验证码字符串返回一个BufferedImage对象并转为byte写入到byte数组中
+            BufferedImage challenge = defaultKaptcha.createImage(createText);
+            ImageIO.write(challenge, "jpg", out);
+        } catch (IllegalArgumentException e) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
     }
     //下载资源
     @RequestMapping("/api/download")

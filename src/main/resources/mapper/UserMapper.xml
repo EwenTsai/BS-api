@@ -12,13 +12,13 @@
         <result column="birthday" property="birthday" />
         <result column="imageAdress" property="imageAdress" />
         <result column="role" property="role" />
-        <result column="permission" property="permission" />
+        <result column="state" property="state" />
     </resultMap>
 
     <parameterMap id="User" type="tk.ewentsai.model.pojo.User"/>
 
     <sql id="Base_Column_list">
-        uid,uname,pwd,age,birthday,imageAdress,role,permission
+        uid,uname,pwd,age,birthday,imageAdress,role,state
     </sql>
 
     <select id="findUserByNameAndPwd" parameterType="String" resultMap="BaseResultMap">
@@ -46,7 +46,7 @@
 
     <insert id="addUser" parameterType="String">
         INSERT INTO
-        users (uid,uname,pwd,age,birthday,imageAdress)
-        VALUES (default,#{uname},#{pwd},0,now(),'images/0.jpg')
+        users (uid,uname,pwd,age,birthday,imageAdress,role,state)
+        VALUES (default,#{uname},#{pwd},0,now(),'images/0.jpg','user','1')
     </insert>
 </mapper>
