@@ -53,6 +53,10 @@ public class CartServiceImpl implements CartService {
         int orderId = singalOrderDao.findOrderId();
         singalOrderDao.removeOrderByOrderId(orderId);
 
+        for(Cart cart : carts){
+            singalOrderDao.addOrder(orderId,cart.getBookId());
+        }
+
         //结算成功移除购物车商品
         cartDao.removeAllByUid(uid);
     }

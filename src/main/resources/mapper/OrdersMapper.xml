@@ -12,6 +12,12 @@
         <result column="createTime" property="createTime"/>
     </resultMap>
 
+    <parameterMap id="insertParameterMap" type="int">
+        <parameter property="uid" javaType="int"/>
+        <parameter property="number" javaType="int"/>
+        <parameter property="amount" javaType="double"/>
+    </parameterMap>
+
     <parameterMap id="Orders" type="tk.ewentsai.model.pojo.Orders"/>
 
     <sql id="Base_Column_list">
@@ -38,7 +44,7 @@
         WHERE id = #{orderId}
     </select>
 
-    <insert id="addOrder" parameterType="int">
+    <insert id="addOrder" parameterMap="insertParameterMap">
         INSERT INTO
         orders (id,uid,number,amount,createTime)
         VALUES (default,#{uid},#{number},#{amount},now())
