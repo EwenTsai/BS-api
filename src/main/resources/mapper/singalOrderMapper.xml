@@ -10,8 +10,6 @@
         <result column="bookId" property="bookId"/>
     </resultMap>
 
-    <parameterMap id="singalOrder" type="tk.ewentsai.model.pojo.singalOrder"/>
-
     <sql id="Base_Column_list">
         id,orderId,bookId
     </sql>

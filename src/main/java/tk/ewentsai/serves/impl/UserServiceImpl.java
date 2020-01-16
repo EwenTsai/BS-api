@@ -8,6 +8,8 @@ import tk.ewentsai.serves.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -40,4 +42,7 @@ public class UserServiceImpl implements UserService {
             return null;
         }
     }
+
+    @Override
+    public void update(String uname, String pwd, String sex, Date birthday) { userDao.updateUser(uname,pwd,sex,birthday); }
 }

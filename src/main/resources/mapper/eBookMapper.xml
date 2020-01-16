@@ -10,8 +10,6 @@
         <result column="downloadlink" property="downloadLink"/>
     </resultMap>
 
-    <parameterMap id="eBook" type="tk.ewentsai.model.pojo.eBook"/>
-
     <sql id="Base_Column_list">
         id,bookname,downloadLink
     </sql>

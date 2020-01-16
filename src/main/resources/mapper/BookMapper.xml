@@ -15,8 +15,6 @@
         <result column="aboutAuthor" property="aboutAuthor"/>
     </resultMap>
 
-    <parameterMap id="Book" type="tk.ewentsai.model.pojo.Book"/>
-
     <sql id="Base_Column_list">
         id,bookname,author,releaseTime,intro,price,rate,aboutAuthor
     </sql>

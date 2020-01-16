@@ -1,6 +1,7 @@
 package tk.ewentsai.contronller;
 
 import com.fasterxml.jackson.databind.util.BeanUtil;
+import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
 import org.springframework.beans.BeanUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import tk.ewentsai.model.pojo.User;
 import tk.ewentsai.model.vo.UserVo;
 import tk.ewentsai.model.vo.loginInfoVo;
 import tk.ewentsai.model.vo.registerInfoVo;
+import tk.ewentsai.model.vo.updateUserVo;
 import tk.ewentsai.serves.CartService;
 import tk.ewentsai.serves.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.xml.crypto.Data;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @RestController
 @CrossOrigin(allowCredentials = "true")//允许请求带上cookie
@@ -82,5 +89,15 @@ public class UserController {
         //将用户购物车的信息放入session中
         hs.setAttribute("Carts", cartService.getCart(user.getUid()));
         return ResultFactory.buildSuccessResult(user);
+    }
+    //修改用户信息
+    @RequestMapping("/api/user/update")
+    public Result update(updateUserVo updateUserVo,HttpSession hs) throws ParseException {
+        User user = (User)hs.getAttribute("user");
+        DateFormat dft = new SimpleDateFormat("yyyy-MM-dd");
+        Date birthday = dft.parse(updateUserVo.getBirthday());
+        System.out.println("updateUserVo值=" + updateUserVo.toString() + "," + "当前类=UserController.update()");
+        userService.update(updateUserVo.getUname(),user.getPwd(),updateUserVo.getSex(), birthday);
+        return ResultFactory.buildSuccessResult("修改成功");
     }
 }

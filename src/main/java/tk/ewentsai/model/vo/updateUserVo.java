@@ -1,15 +1,15 @@
 package tk.ewentsai.model.vo;
 
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.Date;
 
 @Data
-public class UserVo {
-    private int id;
+@ToString
+public class updateUserVo {
     private String uname;
-    private String age;
+    private String pwd;
     private String sex;
-    private Date birthday;
-    private String imageAdress;
+    private String birthday;
 }

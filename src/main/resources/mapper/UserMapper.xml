@@ -8,6 +8,7 @@
         <result column="uid" property="uid" />
         <result column="uname" property="uname" />
         <result column="pwd" property="pwd" />
+        <result column="sex" property="sex"/>
         <result column="age" property="age" />
         <result column="birthday" property="birthday" />
         <result column="imageAdress" property="imageAdress" />
@@ -15,10 +16,15 @@
         <result column="state" property="state" />
     </resultMap>
 
-    <parameterMap id="User" type="tk.ewentsai.model.pojo.User"/>
+    <parameterMap id="updateUser" type="tk.ewentsai.model.vo.updateUserVo">
+        <parameter property="uname" javaType="String"/>
+        <parameter property="pwd" javaType="String"/>
+        <parameter property="sex" javaType="String"/>
+        <parameter property="birthday" javaType="Date"/>
+    </parameterMap>
 
     <sql id="Base_Column_list">
-        uid,uname,pwd,age,birthday,imageAdress,role,state
+        uid,uname,pwd,sex,age,birthday,imageAdress,role,state
     </sql>
 
     <select id="findUserByNameAndPwd" parameterType="String" resultMap="BaseResultMap">
@@ -46,7 +52,13 @@
 
     <insert id="addUser" parameterType="String">
         INSERT INTO
-        users (uid,uname,pwd,age,birthday,imageAdress,role,state)
-        VALUES (default,#{uname},#{pwd},0,now(),'images/0.jpg','user','1')
+        users (uid,uname,pwd,age,sex,birthday,imageAdress,role,state)
+        VALUES (default,#{uname},#{pwd},0,1,now(),'images/0.jpg','user','1')
     </insert>
+    
+    <update id="updateUser" parameterMap="updateUser">
+        UPDATE users
+        SET sex = #{sex},pwd = #{pwd},birthday = #{birthday}
+        WHERE uname = #{uname}
+    </update>
 </mapper>

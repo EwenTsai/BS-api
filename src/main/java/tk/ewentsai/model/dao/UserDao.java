@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Param;
 import tk.ewentsai.model.pojo.User;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
+
 @Repository
 public interface UserDao {
 
@@ -29,4 +31,14 @@ public interface UserDao {
      * 添加用户
      */
     void addUser(@Param("uname") String uname, @Param("pwd") String pwd);
+
+    /**
+     * 修改用户信息
+     * @param uname
+     * @param pwd
+     * @param sex
+     * @param birthday
+     * @return
+     */
+    void updateUser(@Param("uname") String uname, @Param("pwd") String pwd, @Param("sex") String sex, @Param("birthday") Date birthday);
 }

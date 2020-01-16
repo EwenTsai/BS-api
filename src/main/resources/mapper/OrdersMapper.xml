@@ -12,7 +12,7 @@
         <result column="createTime" property="createTime"/>
     </resultMap>
 
-    <parameterMap id="insertParameterMap" type="int">
+    <parameterMap id="insertParameterMap" type="tk.ewentsai.model.pojo.Orders">
         <parameter property="uid" javaType="int"/>
         <parameter property="number" javaType="int"/>
         <parameter property="amount" javaType="double"/>

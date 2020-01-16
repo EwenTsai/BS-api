@@ -10,8 +10,6 @@
         <result column="amount" property="amount"/>
     </resultMap>
 
-    <parameterMap id="Cart" type="tk.ewentsai.model.pojo.Cart"/>
-
     <sql id="Base_Column_list">
         id,uid,bookId,amount
     </sql>

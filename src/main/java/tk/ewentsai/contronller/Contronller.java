@@ -4,11 +4,14 @@ import com.google.code.kaptcha.impl.DefaultKaptcha;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import tk.ewentsai.model.pojo.User;
 import tk.ewentsai.serves.BookService;
 import tk.ewentsai.serves.OrdersService;
 import tk.ewentsai.serves.eBookService;
 
 import javax.imageio.ImageIO;
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +26,7 @@ import java.io.IOException;
 public class Contronller {
     @Autowired
     private DefaultKaptcha defaultKaptcha;
-
+    //验证码
     @GetMapping("/api/kaptcha")
     public void defaultKaptcha(HttpSession hs, HttpServletResponse response) throws Exception {
         byte[] captchaChallengeAsJpeg = null;
