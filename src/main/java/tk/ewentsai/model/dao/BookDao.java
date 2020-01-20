@@ -1,10 +1,13 @@
 package tk.ewentsai.model.dao;
 
 import com.github.pagehelper.Page;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import tk.ewentsai.model.pojo.Book;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Repository
 public interface BookDao {
@@ -14,6 +17,12 @@ public interface BookDao {
      * @return
      */
     Page<Book> findAllBook();
+
+    /**
+     * 根据库存查询
+     * @return
+     */
+    Page<Book> findBookByStock();
 
     /**
      * 通过书名查询书
@@ -28,4 +37,27 @@ public interface BookDao {
      * @return
      */
     Book findBookById(int id);
+
+    /**
+     * 修改书本信息
+     * @param id
+     * @param bookname
+     * @param author
+     * @param releaseTime
+     * @param intro
+     * @param price
+     * @param rate
+     * @param stock
+     * @param sales
+     */
+    void updateBookById(@Param("id") int id,
+                        @Param("bookname") String bookname,
+                        @Param("author") String author,
+                        @Param("releaseTime") Date releaseTime,
+                        @Param("intro") String intro,
+                        @Param("price") BigDecimal price,
+                        @Param("aboutAuthor")String aboutAuthor,
+                        @Param("rate") float rate,
+                        @Param("stock") int stock,
+                        @Param("sales") int sales);
 }

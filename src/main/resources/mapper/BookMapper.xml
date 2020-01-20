@@ -13,16 +13,38 @@
         <result column="price" property="price"/>
         <result column="rate" property="rate"/>
         <result column="aboutAuthor" property="aboutAuthor"/>
+        <result column="stock" property="stock"/>
+        <result column="sales" property="sales"/>
     </resultMap>
+    
+    <parameterMap id="BaseParameterMap" type="tk.ewentsai.model.pojo.Book">
+        <parameter property="id" javaType="int"/>
+        <parameter property="bookname" javaType="String"/>
+        <parameter property="author" javaType="String"/>
+        <parameter property="releaseTime" javaType="Date"/>
+        <parameter property="intro" javaType="String"/>
+        <parameter property="price" javaType="Bigdecimal"/>
+        <parameter property="rate" javaType="float"/>
+        <parameter property="aboutAuthor" javaType="String"/>
+        <parameter property="stock" javaType="int"/>
+        <parameter property="sales" javaType="int"/>
+    </parameterMap>
 
     <sql id="Base_Column_list">
-        id,bookname,author,releaseTime,intro,price,rate,aboutAuthor
+        id,bookname,author,releaseTime,intro,price,rate,aboutAuthor,stock,sales
     </sql>
 
     <select id="findAllBook" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_list"/>
         FROM books
+    </select>
+
+    <select id="findBookByStock" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_list"/>
+        FROM books
+        WHERE stock > 0
     </select>
 
     <select id="findBookByBookName" parameterType="String" resultMap="BaseResultMap">
@@ -39,4 +61,18 @@
         FROM books
         where id = #{id}
     </select>
+    
+    <update id="updateBookById" parameterMap="BaseParameterMap">
+        UPDATE books
+        SET bookname = #{bookname},
+            author = #{author},
+            releaseTime = #{releaseTime},
+            intro = #{intro},
+            price = #{price},
+            rate = #{rate},
+            aboutAuthor = #{aboutAuthor},
+            stock = #{stock},
+            sales = #{sales}
+        WHERE id = #{id}
+    </update>
 </mapper>

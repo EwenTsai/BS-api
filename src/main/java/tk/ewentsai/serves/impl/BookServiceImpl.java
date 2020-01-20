@@ -20,6 +20,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public Page<Book> findBookByStock() { return bookDao.findBookByStock(); }
+
+    @Override
     public ArrayList<Book> findBookByBookName(String bookname) {
         return bookDao.findBookByBookName(bookname);
     }
@@ -28,5 +31,20 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book findBookById(int id) {
         return bookDao.findBookById(id);
+    }
+
+    @Override
+    public void updateBook(Book book) {
+        bookDao.updateBookById(
+                book.getId(),
+                book.getBookname(),
+                book.getAuthor(),
+                book.getReleaseTime(),
+                book.getIntro(),
+                book.getPrice(),
+                book.getAboutAuthor(),
+                book.getRate(),
+                book.getStock(),
+                book.getSales());
     }
 }

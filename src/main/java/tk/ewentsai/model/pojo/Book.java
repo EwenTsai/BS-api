@@ -16,4 +16,6 @@ public class Book {
         private BigDecimal price;
         private float rate;
         private String aboutAuthor;
+        private int stock;
+        private int sales;
 }

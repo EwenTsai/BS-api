@@ -32,7 +32,7 @@ public class BookContronller {
     @RequestMapping("api/Book")
     public PageInfo<Book> pagination(@RequestParam(defaultValue = "1") Integer pageNum){
         PageHelper.startPage(pageNum,10);
-        PageInfo<Book> pageInfo = new PageInfo<>(bookService.findAllBook());
+        PageInfo<Book> pageInfo = new PageInfo<>(bookService.findBookByStock());
         return pageInfo;
     }
 }

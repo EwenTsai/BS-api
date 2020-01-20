@@ -6,10 +6,13 @@ import java.util.Date;
 
 @Data
 public class UserVo {
-    private int id;
+
+    private int uid;
     private String uname;
     private String age;
     private String sex;
-    private Date birthday;
+    private String birthday;
     private String imageAdress;
+    private boolean isAdmin;
+
 }

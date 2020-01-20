@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 public interface BookService {
     Page<Book> findAllBook();
+    Page<Book> findBookByStock();
     ArrayList<Book> findBookByBookName(String bookname);
     Book findBookById(int id);
+    void updateBook(Book book);
 }

@@ -1,9 +1,6 @@
 package tk.ewentsai.contronller;
 
-import com.fasterxml.jackson.databind.util.BeanUtil;
-import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
 import org.springframework.beans.BeanUtils;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import tk.ewentsai.common.Result.Result;
 import tk.ewentsai.common.Result.ResultFactory;
@@ -80,15 +77,28 @@ public class UserController {
     @RequestMapping("/api/user/check")
     public Result check(int uid,HttpSession hs) {
         User user = userService.check(uid);
+        boolean isAdmin = false;
         //无此uid用户
         if(user==null){
             return ResultFactory.buildFailResult("无此用户");
         }
         //将user的信息放入session中
         hs.setAttribute("user", user);
-        //将用户购物车的信息放入session中
-        hs.setAttribute("Carts", cartService.getCart(user.getUid()));
-        return ResultFactory.buildSuccessResult(user);
+        //判断登陆用户角色
+        if("admin".equals(user.getRole())){
+            isAdmin = true;
+        }
+        UserVo userVo = new UserVo();
+        BeanUtils.copyProperties(user,userVo);
+        userVo.setAdmin(isAdmin);
+        return ResultFactory.buildSuccessResult(userVo);
+    }
+    //获取用户信息
+    @RequestMapping("/api/user/get")
+    public Result get(HttpSession hs){
+        UserVo userVo = new UserVo();
+        BeanUtils.copyProperties(hs.getAttribute("user"),userVo);
+        return ResultFactory.buildSuccessResult(userVo);
     }
     //修改用户信息
     @RequestMapping("/api/user/update")
@@ -96,7 +106,6 @@ public class UserController {
         User user = (User)hs.getAttribute("user");
         DateFormat dft = new SimpleDateFormat("yyyy-MM-dd");
         Date birthday = dft.parse(updateUserVo.getBirthday());
-        System.out.println("updateUserVo值=" + updateUserVo.toString() + "," + "当前类=UserController.update()");
         userService.update(updateUserVo.getUname(),user.getPwd(),updateUserVo.getSex(), birthday);
         return ResultFactory.buildSuccessResult("修改成功");
     }

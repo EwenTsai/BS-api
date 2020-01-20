@@ -31,6 +31,10 @@ public class CartContronller {
 	@RequestMapping("/api/Cart/add")
 	public Result add(HttpSession hs, int bookId){
 		User user = (User)hs.getAttribute("user");
+		Book book = bookService.findBookById(bookId);
+		if(book.getStock()==0){
+			return ResultFactory.buildFailResult("库存为0");
+		}
 		cartService.add(user.getUid(),bookId);
 		return ResultFactory.buildSuccessResult("添加成功");
 	}
