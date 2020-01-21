@@ -39,7 +39,7 @@ public class BookContronller {
     //按书本销量排序
     @RequestMapping("/api/Book/sales")
     public PageInfo<Book> sales(@RequestParam(defaultValue = "1") Integer pageNum){
-        PageHelper.startPage(10);
+        PageHelper.startPage(pageNum,10);
         PageInfo<Book> pageInfo = new PageInfo<>(bookService.sortBySales());
         return pageInfo;
     }
