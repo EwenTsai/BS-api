@@ -34,6 +34,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public Page<Book> sortBySales() { return bookDao.selectBookBySales(); }
+
+    @Override
     public void updateBook(Book book) {
         bookDao.updateBookById(
                 book.getId(),

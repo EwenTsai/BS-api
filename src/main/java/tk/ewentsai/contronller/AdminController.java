@@ -2,6 +2,7 @@ package tk.ewentsai.contronller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 import tk.ewentsai.common.Result.Result;
 import tk.ewentsai.common.Result.ResultFactory;
 import tk.ewentsai.model.pojo.Book;
+import tk.ewentsai.model.vo.updateBookVo;
 import tk.ewentsai.serves.*;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @RestController
 @CrossOrigin(allowCredentials = "true")//允许请求带上cookies
@@ -38,8 +45,14 @@ public class AdminController {
     }
     //修改书本信息
     @RequestMapping("/api/Admin/updateBook")
-    public Result updateBook(Book book){
-        System.out.println("book.toString()值=" + book.toString() + "," + "当前类=AdminController.updateBook()");
+    public Result updateBook(updateBookVo updateBookVo) throws ParseException {
+        System.out.println("updateBookVo.toString()值=" + updateBookVo.toString() + "," + "当前类=AdminController.updateBook()");
+        Book book = new Book();
+        BeanUtils.copyProperties(updateBookVo,book);
+        //string转化为date
+        DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
+        Date date = fmt.parse(updateBookVo.getReleaseTime());
+        book.setReleaseTime(date);
         bookService.updateBook(book);
         return ResultFactory.buildSuccessResult("修改成功");
     }

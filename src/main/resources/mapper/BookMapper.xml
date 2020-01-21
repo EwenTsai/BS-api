@@ -61,6 +61,13 @@
         FROM books
         where id = #{id}
     </select>
+
+    <select id="selectBookBySales" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_list"/>
+        FROM books
+        ORDER BY sales
+    </select>
     
     <update id="updateBookById" parameterMap="BaseParameterMap">
         UPDATE books

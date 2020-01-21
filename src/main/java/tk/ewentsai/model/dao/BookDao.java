@@ -39,6 +39,12 @@ public interface BookDao {
     Book findBookById(int id);
 
     /**
+     * 通过销量排序
+     * @return
+     */
+    Page<Book> selectBookBySales();
+
+    /**
      * 修改书本信息
      * @param id
      * @param bookname

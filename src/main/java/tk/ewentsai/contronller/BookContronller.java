@@ -29,10 +29,18 @@ public class BookContronller {
     }
 
     //分页显示
-    @RequestMapping("api/Book")
+    @RequestMapping("/api/Book")
     public PageInfo<Book> pagination(@RequestParam(defaultValue = "1") Integer pageNum){
         PageHelper.startPage(pageNum,10);
         PageInfo<Book> pageInfo = new PageInfo<>(bookService.findBookByStock());
+        return pageInfo;
+    }
+
+    //按书本销量排序
+    @RequestMapping("/api/Book/sales")
+    public PageInfo<Book> sales(@RequestParam(defaultValue = "1") Integer pageNum){
+        PageHelper.startPage(10);
+        PageInfo<Book> pageInfo = new PageInfo<>(bookService.sortBySales());
         return pageInfo;
     }
 }

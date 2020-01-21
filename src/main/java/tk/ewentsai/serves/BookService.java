@@ -10,5 +10,6 @@ public interface BookService {
     Page<Book> findBookByStock();
     ArrayList<Book> findBookByBookName(String bookname);
     Book findBookById(int id);
+    Page<Book> sortBySales();
     void updateBook(Book book);
 }
