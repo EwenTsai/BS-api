@@ -46,7 +46,6 @@ public class AdminController {
     //修改书本信息
     @RequestMapping("/api/Admin/updateBook")
     public Result updateBook(updateBookVo updateBookVo) throws ParseException {
-        System.out.println("updateBookVo.toString()值=" + updateBookVo.toString() + "," + "当前类=AdminController.updateBook()");
         Book book = new Book();
         BeanUtils.copyProperties(updateBookVo,book);
         //string转化为date

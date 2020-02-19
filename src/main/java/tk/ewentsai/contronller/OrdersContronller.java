@@ -26,30 +26,6 @@ public class OrdersContronller {
     @Autowired
     private CartService cartService;
 
-    //购物车结算
-//    @RequestMapping("/api/Order/settle")
-//    public void orders(BigDecimal amount, HttpSession hs){
-//        User user = (User)hs.getAttribute("user");
-//        ArrayList<Cart> Carts = (ArrayList<Cart>)hs.getAttribute("Carts");
-//        int number = 0;
-//        for(Cart cart : Carts){
-//            number+=cart.getAmount();
-//        }
-//        ordersService.add(user.getUid(),number,amount);
-//        //通过空值来获得orderid
-//        int orderId = singalOrderService.findOrderId();
-//        singalOrderService.removeOrderByOrderId(orderId);
-//
-//        for(Cart cart : Carts){
-//            for(int i=0; i<cart.getAmount(); i++){
-//                singalOrderService.addOrder(orderId,cart.getBookId());
-//            }
-//        }
-//        //结算成功移除购物车商品
-//        hs.setAttribute("Carts",new ArrayList<Cart>());
-//        cartService.removeAll(user.getUid());
-//    }
-
     //订单详情信息获取
     @RequestMapping("/api/Order/get")
     public ArrayList orderDetail(int orderId){

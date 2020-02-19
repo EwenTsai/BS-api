@@ -1,5 +1,7 @@
 package tk.ewentsai.model.dao;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import tk.ewentsai.model.pojo.Cart;
@@ -13,7 +15,7 @@ public interface CartDao {
      * @param uid
      * @return
      */
-    ArrayList<Cart> findCartByUid(int uid);
+    Page<Cart> findCartByUid(int uid);
 
     /**
      * 通过书id和用户id，查询对应的书本在购物车的信息

@@ -1,5 +1,7 @@
 package tk.ewentsai.serves.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.ewentsai.model.dao.BookDao;
@@ -21,7 +23,7 @@ public class CartServiceImpl implements CartService {
     private singalOrderDao singalOrderDao;
 
     @Override
-    public ArrayList<Cart> getCart(int uid) { return cartDao.findCartByUid(uid); }
+    public Page<Cart> getCart(int uid) { return cartDao.findCartByUid(uid); }
 
     @Override
     public Cart getCart(int bookId, int uid) {
@@ -43,7 +45,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void settle(BigDecimal amount, int uid) {
-        ArrayList<Cart> carts = cartDao.findCartByUid(uid);
+        Page<Cart> carts = cartDao.findCartByUid(uid);
         int number = 0;
         for(Cart cart : carts){
             number+=cart.getAmount();
