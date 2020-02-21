@@ -1,12 +1,10 @@
 package tk.ewentsai.serves;
 
 import com.github.pagehelper.Page;
-import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
-import tk.ewentsai.model.pojo.Cart;
+import tk.ewentsai.model.entity.Cart;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 public interface CartService {
     Page<Cart> getCart(int uid);

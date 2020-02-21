@@ -1,4 +1,4 @@
-package tk.ewentsai.model.pojo;
+package tk.ewentsai.model.entity;
 
 import lombok.Data;
 import lombok.ToString;

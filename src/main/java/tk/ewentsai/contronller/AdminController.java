@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import tk.ewentsai.common.Result.Result;
 import tk.ewentsai.common.Result.ResultFactory;
-import tk.ewentsai.model.pojo.Book;
+import tk.ewentsai.model.entity.Book;
 import tk.ewentsai.model.vo.updateBookVo;
 import tk.ewentsai.serves.*;
 

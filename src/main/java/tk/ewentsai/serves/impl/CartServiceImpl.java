@@ -1,18 +1,16 @@
 package tk.ewentsai.serves.impl;
 
 import com.github.pagehelper.Page;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tk.ewentsai.model.dao.BookDao;
 import tk.ewentsai.model.dao.CartDao;
 import tk.ewentsai.model.dao.OrdersDao;
 import tk.ewentsai.model.dao.singalOrderDao;
-import tk.ewentsai.model.pojo.Cart;
+import tk.ewentsai.model.entity.Cart;
 import tk.ewentsai.serves.CartService;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+
 @Service
 public class CartServiceImpl implements CartService {
     @Autowired

@@ -2,10 +2,7 @@ package tk.ewentsai.model.dao;
 
 import com.github.pagehelper.Page;
 import org.springframework.stereotype.Repository;
-import tk.ewentsai.model.pojo.Book;
-import tk.ewentsai.model.pojo.eBook;
-
-import java.util.ArrayList;
+import tk.ewentsai.model.entity.eBook;
 
 @Repository
 public interface eBookDao {

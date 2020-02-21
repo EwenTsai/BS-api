@@ -2,7 +2,7 @@ package tk.ewentsai.model.dao;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-import tk.ewentsai.model.pojo.Orders;
+import tk.ewentsai.model.entity.Orders;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

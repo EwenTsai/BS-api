@@ -4,7 +4,7 @@
 
 <mapper namespace="tk.ewentsai.model.dao.BookDao">
 
-    <resultMap id="BaseResultMap" type="tk.ewentsai.model.pojo.Book">
+    <resultMap id="BaseResultMap" type="tk.ewentsai.model.entity.Book">
         <result column="id" property="id"/>
         <result column="bookname" property="bookname"/>
         <result column="author" property="author"/>
@@ -17,7 +17,7 @@
         <result column="sales" property="sales"/>
     </resultMap>
     
-    <parameterMap id="BaseParameterMap" type="tk.ewentsai.model.pojo.Book">
+    <parameterMap id="BaseParameterMap" type="tk.ewentsai.model.entity.Book">
         <parameter property="id" javaType="int"/>
         <parameter property="bookname" javaType="String"/>
         <parameter property="author" javaType="String"/>

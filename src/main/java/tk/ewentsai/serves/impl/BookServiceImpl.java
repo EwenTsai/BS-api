@@ -4,7 +4,7 @@ import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.ewentsai.model.dao.BookDao;
-import tk.ewentsai.model.pojo.Book;
+import tk.ewentsai.model.entity.Book;
 import tk.ewentsai.serves.BookService;
 
 import java.util.ArrayList;

@@ -3,7 +3,7 @@ package tk.ewentsai.model.dao;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-import tk.ewentsai.model.pojo.Book;
+import tk.ewentsai.model.entity.Book;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

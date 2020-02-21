@@ -1,11 +1,16 @@
-package tk.ewentsai.model.pojo;
+package tk.ewentsai.model.entity;
 
 import lombok.Data;
 
-import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Data
+@Entity
+@Table(name = "users")
 public class User {
+	@Id
 	private int uid;
 	private String uname;
 	private String pwd;

@@ -4,7 +4,7 @@
 
 <mapper namespace="tk.ewentsai.model.dao.singalOrderDao">
 
-    <resultMap id="BaseResultMap" type="tk.ewentsai.model.pojo.singalOrder">
+    <resultMap id="BaseResultMap" type="tk.ewentsai.model.entity.singalOrder">
         <result column="id" property="id"/>
         <result column="orderId" property="orderId"/>
         <result column="bookId" property="bookId"/>

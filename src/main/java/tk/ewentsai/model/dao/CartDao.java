@@ -1,12 +1,10 @@
 package tk.ewentsai.model.dao;
 
 import com.github.pagehelper.Page;
-import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
-import tk.ewentsai.model.pojo.Cart;
+import tk.ewentsai.model.entity.Cart;
 
-import java.util.ArrayList;
 @Repository
 public interface CartDao {
 

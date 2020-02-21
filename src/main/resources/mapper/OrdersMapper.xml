@@ -4,7 +4,7 @@
 
 <mapper namespace="tk.ewentsai.model.dao.OrdersDao">
 
-    <resultMap id="BaseResultMap" type="tk.ewentsai.model.pojo.Orders">
+    <resultMap id="BaseResultMap" type="tk.ewentsai.model.entity.Orders">
         <result column="id" property="id"/>
         <result column="uid" property="uid"/>
         <result column="number" property="number"/>
@@ -12,13 +12,13 @@
         <result column="createTime" property="createTime"/>
     </resultMap>
 
-    <parameterMap id="insertParameterMap" type="tk.ewentsai.model.pojo.Orders">
+    <parameterMap id="insertParameterMap" type="tk.ewentsai.model.entity.Orders">
         <parameter property="uid" javaType="int"/>
         <parameter property="number" javaType="int"/>
         <parameter property="amount" javaType="double"/>
     </parameterMap>
 
-    <parameterMap id="Orders" type="tk.ewentsai.model.pojo.Orders"/>
+    <parameterMap id="Orders" type="tk.ewentsai.model.entity.Orders"/>
 
     <sql id="Base_Column_list">
         id,uid,number,amount,createTime

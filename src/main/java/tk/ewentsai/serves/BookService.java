@@ -1,7 +1,7 @@
 package tk.ewentsai.serves;
 
 import com.github.pagehelper.Page;
-import tk.ewentsai.model.pojo.Book;
+import tk.ewentsai.model.entity.Book;
 
 import java.util.ArrayList;
 

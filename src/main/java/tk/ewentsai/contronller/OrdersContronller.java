@@ -7,13 +7,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import tk.ewentsai.model.pojo.*;
+import tk.ewentsai.model.entity.*;
 import tk.ewentsai.serves.CartService;
 import tk.ewentsai.serves.OrdersService;
 import tk.ewentsai.serves.singalOrderService;
 
 import javax.servlet.http.HttpSession;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 @RestController

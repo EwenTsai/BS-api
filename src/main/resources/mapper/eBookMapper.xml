@@ -4,7 +4,7 @@
 
 <mapper namespace="tk.ewentsai.model.dao.eBookDao">
 
-    <resultMap id="BaseResultMap" type="tk.ewentsai.model.pojo.eBook">
+    <resultMap id="BaseResultMap" type="tk.ewentsai.model.entity.eBook">
         <result column="id" property="id"/>
         <result column="bookname" property="bookname"/>
         <result column="downloadlink" property="downloadLink"/>
