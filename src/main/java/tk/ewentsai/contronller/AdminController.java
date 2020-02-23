@@ -36,13 +36,6 @@ public class AdminController {
     @Autowired
     private singalOrderService singalOrderService;
 
-    //分页显示--书籍
-    @RequestMapping("/api/Admin/Book")
-    public PageInfo<Book> pagination(@RequestParam(defaultValue = "1") Integer pageNum){
-        PageHelper.startPage(pageNum,10);
-        PageInfo<Book> pageInfo = new PageInfo<>(bookService.findAllBook());
-        return pageInfo;
-    }
     //修改书本信息
     @RequestMapping("/api/Admin/updateBook")
     public Result updateBook(updateBookVo updateBookVo) throws ParseException {
@@ -52,7 +45,7 @@ public class AdminController {
         DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
         Date date = fmt.parse(updateBookVo.getReleaseTime());
         book.setReleaseTime(date);
-        bookService.updateBook(book);
+        bookService.update(book);
         return ResultFactory.buildSuccessResult("修改成功");
     }
 }

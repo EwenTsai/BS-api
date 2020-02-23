@@ -1,15 +1,15 @@
 package tk.ewentsai.serves;
 
-import com.github.pagehelper.Page;
+import org.springframework.data.domain.Page;
 import tk.ewentsai.model.entity.Book;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface BookService {
-    Page<Book> findAllBook();
-    Page<Book> findBookByStock();
-    ArrayList<Book> findBookByBookName(String bookname);
+    Page<Book> findAll(int page);
+    Page<Book> findByStockLessThanEqual(int pageNum);
+    Page<Book> findBookByBooknameIsLike(String bookname);
     Book findBookById(int id);
-    Page<Book> sortBySales();
-    void updateBook(Book book);
+    Page<Book> findAllOrderBySales(int pageNum);
+    boolean update(Book book);
 }

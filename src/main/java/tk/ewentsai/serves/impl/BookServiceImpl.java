@@ -1,53 +1,40 @@
 package tk.ewentsai.serves.impl;
 
-import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import tk.ewentsai.model.dao.BookDao;
+import tk.ewentsai.model.dao.BookRepository;
 import tk.ewentsai.model.entity.Book;
 import tk.ewentsai.serves.BookService;
 
-import java.util.ArrayList;
 @Service
 public class BookServiceImpl implements BookService {
 
     @Autowired
-    private BookDao bookDao;
+    private BookRepository bookRepository;
 
     @Override
-    public Page<Book> findAllBook() {
-        return bookDao.findAllBook();
-    }
+    public Page<Book> findAll(int page) { return bookRepository.findAll(PageRequest.of(page, 10)); }
+    //空库存查询
+    @Override
+    public Page<Book> findByStockLessThanEqual(int pageNum) { return bookRepository.findByStockLessThanEqual(0, PageRequest.of(pageNum, 10)); }
 
     @Override
-    public Page<Book> findBookByStock() { return bookDao.findBookByStock(); }
-
-    @Override
-    public ArrayList<Book> findBookByBookName(String bookname) {
-        return bookDao.findBookByBookName(bookname);
-    }
-
+    public Page<Book> findBookByBooknameIsLike(String bookname) { return bookRepository.findByBooknameContaining(bookname, PageRequest.of(0, 5)); }
 
     @Override
     public Book findBookById(int id) {
-        return bookDao.findBookById(id);
+        return bookRepository.findById(id);
     }
 
     @Override
-    public Page<Book> sortBySales() { return bookDao.selectBookBySales(); }
+    public Page<Book> findAllOrderBySales(int pageNum) { return bookRepository.findAll(PageRequest.of(pageNum, 10, Sort.by(Sort.Direction.DESC, "sales"))); }
 
     @Override
-    public void updateBook(Book book) {
-        bookDao.updateBookById(
-                book.getId(),
-                book.getBookname(),
-                book.getAuthor(),
-                book.getReleaseTime(),
-                book.getIntro(),
-                book.getPrice(),
-                book.getAboutAuthor(),
-                book.getRate(),
-                book.getStock(),
-                book.getSales());
+    public boolean update(Book book) {
+        bookRepository.save(book);
+        return true;
     }
 }
