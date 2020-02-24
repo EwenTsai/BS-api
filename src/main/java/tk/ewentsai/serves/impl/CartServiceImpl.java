@@ -1,71 +1,66 @@
 package tk.ewentsai.serves.impl;
 
-import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tk.ewentsai.model.dao.CartDao;
+import tk.ewentsai.model.dao.CartRepository;
 import tk.ewentsai.model.dao.OrdersDao;
 import tk.ewentsai.model.dao.singalOrderDao;
 import tk.ewentsai.model.entity.Cart;
 import tk.ewentsai.serves.CartService;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class CartServiceImpl implements CartService {
+
     @Autowired
-    private CartDao cartDao;
-    @Autowired
-    private OrdersDao ordersDao;
-    @Autowired
-    private singalOrderDao singalOrderDao;
+    private CartRepository cartRepository;
 
     @Override
-    public Page<Cart> getCart(int uid) { return cartDao.findCartByUid(uid); }
+    public List<Cart> getCart(int uid) { return cartRepository.findCartsByUid(uid); }
 
     @Override
     public Cart getCart(int bookId, int uid) {
-        return cartDao.findCartByBookIdAndUid(bookId,uid);
+        return cartRepository.findCartByBookIdAndUid(bookId,uid);
     }
 
     @Override
-    public void updateAmount(int uid, int bookId, int amount) { cartDao.updateAmountByBookIdAndUid(uid,bookId,amount); }
+    public void updateAmount(int uid, int bookId, int amount) { cartRepository.setAmountFor(amount,uid,bookId); }
 
     @Override
     public void add(int uid, int bookId) {
-        Cart cart = cartDao.findCartByBookIdAndUid(bookId,uid);
-        if(cart==null){
-            cartDao.addCart(uid,bookId,1);
-        }else{
-            updateAmount(uid,bookId,cart.getAmount()+1);
-        }
+        Cart cart = cartRepository.findCartByBookIdAndUid(bookId,uid);
+        cart.setAmount(cart.getAmount()+1);
+        cartRepository.save(cart);
     }
 
     @Override
     public void settle(BigDecimal amount, int uid) {
-        Page<Cart> carts = cartDao.findCartByUid(uid);
+        List<Cart> carts = cartRepository.findCartsByUid(uid);
         int number = 0;
         for(Cart cart : carts){
             number+=cart.getAmount();
         }
-        ordersDao.addOrder(uid,number,amount);
-        //通过空值来获得orderid
-        int orderId = singalOrderDao.findOrderId();
-        singalOrderDao.removeOrderByOrderId(orderId);
-
-        for(Cart cart : carts){
-            singalOrderDao.addOrder(orderId,cart.getBookId());
-        }
+        //转至orderRepository
+//        ordersDao.addOrder(uid,number,amount);
+//        //通过空值来获得orderid
+//        int orderId = singalOrderDao.findOrderId();
+//        singalOrderDao.removeOrderByOrderId(orderId);
+//
+//        for(Cart cart : carts){
+//            singalOrderDao.addOrder(orderId,cart.getBookId());
+//        }
 
         //结算成功移除购物车商品
-        cartDao.removeAllByUid(uid);
+        cartRepository.deleteCartsByUid(uid);
     }
 
     @Override
-    public void remove(int uid, int bookId) { cartDao.removeCartByBookIdAndUid(uid,bookId); }
+    public void remove(int uid, int bookId) { cartRepository.deleteCartByBookIdAndUid(uid,bookId); }
 
     @Override
     public void removeAll(int uid) {
-        cartDao.removeAllByUid(uid);
+        cartRepository.deleteCartsByUid(uid);
     }
 }

@@ -18,12 +18,12 @@ public class BookContronller {
     //根据搜索的关键词进行搜索
     @RequestMapping("/api/Book/search")
     public Page<Book> search(String searchText) {
-        return bookService.findBookByBooknameIsLike(searchText);
+        return bookService.search(searchText);
     }
 
     //根据id进行搜索
     @RequestMapping("/api/Book/searchBook")
-    public Book search(int id) { return bookService.findBookById(id); }
+    public Book search(int id) { return bookService.search(id); }
 
     //分页显示
     @RequestMapping("/api/Book")
@@ -31,7 +31,7 @@ public class BookContronller {
 
     //按书本销量排序
     @RequestMapping("/api/Book/sales")
-    public Page<Book> sales(@RequestParam(defaultValue = "0") int pageNum){ return bookService.findAllOrderBySales(pageNum); }
+    public Page<Book> sales(@RequestParam(defaultValue = "0") int pageNum){ return bookService.orderBySales(pageNum); }
 
     //空库存查询
     @RequestMapping("/api/Book/stock")

@@ -5,9 +5,10 @@ import org.apache.ibatis.annotations.Param;
 import tk.ewentsai.model.entity.Cart;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface CartService {
-    Page<Cart> getCart(int uid);
+    List<Cart> getCart(int uid);
     Cart getCart(@Param("bookId") int bookId, @Param("uid") int uid);
     void updateAmount(@Param("uid") int uid, @Param("bookId") int bookId, @Param("amount") int amount);
     void add(@Param("uid") int uid, @Param("bookId") int bookId);

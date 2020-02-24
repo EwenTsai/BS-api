@@ -17,10 +17,12 @@ import tk.ewentsai.serves.CartService;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @CrossOrigin(allowCredentials = "true")//允许请求带上cookie
 public class CartContronller {
+
 	@Autowired
     private CartService cartService;
 	@Autowired
@@ -30,18 +32,19 @@ public class CartContronller {
 	@RequestMapping("/api/Cart/add")
 	public Result add(HttpSession hs, int bookId){
 		User user = (User)hs.getAttribute("user");
-		Book book = bookService.findBookById(bookId);
+		Book book = bookService.search(bookId);
 		if(book.getStock()==0){
 			return ResultFactory.buildFailResult("库存为0");
+		}else{
+			cartService.add(user.getUid(),bookId);
+			return ResultFactory.buildSuccessResult("添加成功");
 		}
-		cartService.add(user.getUid(),bookId);
-		return ResultFactory.buildSuccessResult("添加成功");
 	}
 	//购物车删除
 	@RequestMapping("/api/Cart/delete")
 	public Result delete(HttpSession hs, int bookId){
 		User user = (User)hs.getAttribute("user");
-		cartService.remove(user.getUid(),bookId);
+		cartService.remove(user.getUid(), bookId);
 		return ResultFactory.buildSuccessResult("删除成功");
 	}
 	//购物车结算
@@ -55,10 +58,10 @@ public class CartContronller {
     @RequestMapping("api/Cart")
 	public Result pagination(HttpSession hs){
 		User user = (User)hs.getAttribute("user");
-		ArrayList<Cart> carts = cartService.getCart(user.getUid());
-		ArrayList<BookVo> result = new ArrayList<>();
+		List<Cart> carts = cartService.getCart(user.getUid());
+		List<BookVo> result = new ArrayList<>();
 		for(Cart cart : carts){
-			Book book = bookService.findBookById(cart.getBookId());
+			Book book = bookService.search(cart.getBookId());
 			BookVo bookVo = new BookVo();
 			BeanUtils.copyProperties(book,bookVo);
 			result.add(bookVo);

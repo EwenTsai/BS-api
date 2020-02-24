@@ -46,7 +46,7 @@ public class UserController {
             hs.setAttribute("user", user);
             //将用户购物车的信息放入session中
 //            hs.setAttribute("Carts", cartService.getCart(user.getUid()));
-            return ResultFactory.buildSuccessResult(user);
+            return ResultFactory.buildSuccessResult(userVo);
         }else{
             return ResultFactory.buildFailResult("用户名或密码错误");
         }
@@ -77,13 +77,8 @@ public class UserController {
         }
         //将user的信息放入session中
         hs.setAttribute("user", user);
-        //判断登陆用户角色
-        if("admin".equals(user.getRole())){
-            isAdmin = true;
-        }
         UserVo userVo = new UserVo();
         BeanUtils.copyProperties(user,userVo);
-        userVo.setAdmin(isAdmin);
         return ResultFactory.buildSuccessResult(userVo);
     }
     //获取用户信息
@@ -97,6 +92,7 @@ public class UserController {
     @RequestMapping("/api/user/update")
     public Result update(updateUserVo updateUserVo,HttpSession hs) throws ParseException {
         User user = (User)hs.getAttribute("user");
+        //时间格式转换
         DateFormat dft = new SimpleDateFormat("yyyy-MM-dd");
         Date birthday = dft.parse(updateUserVo.getBirthday());
         userService.update(updateUserVo.getUname(),user.getPwd(),updateUserVo.getSex(), birthday);

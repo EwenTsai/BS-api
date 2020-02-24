@@ -8,8 +8,8 @@ import java.util.List;
 public interface BookService {
     Page<Book> findAll(int page);
     Page<Book> findByStockLessThanEqual(int pageNum);
-    Page<Book> findBookByBooknameIsLike(String bookname);
-    Book findBookById(int id);
-    Page<Book> findAllOrderBySales(int pageNum);
+    Page<Book> search(String bookname);
+    Book search(int id);
+    Page<Book> orderBySales(int pageNum);
     boolean update(Book book);
 }

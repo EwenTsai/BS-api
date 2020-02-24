@@ -22,15 +22,15 @@ public class BookServiceImpl implements BookService {
     public Page<Book> findByStockLessThanEqual(int pageNum) { return bookRepository.findByStockLessThanEqual(0, PageRequest.of(pageNum, 10)); }
 
     @Override
-    public Page<Book> findBookByBooknameIsLike(String bookname) { return bookRepository.findByBooknameContaining(bookname, PageRequest.of(0, 5)); }
+    public Page<Book> search(String bookname) { return bookRepository.findByBooknameContaining(bookname, PageRequest.of(0, 5)); }
 
     @Override
-    public Book findBookById(int id) {
+    public Book search(int id) {
         return bookRepository.findById(id);
     }
 
     @Override
-    public Page<Book> findAllOrderBySales(int pageNum) { return bookRepository.findAll(PageRequest.of(pageNum, 10, Sort.by(Sort.Direction.DESC, "sales"))); }
+    public Page<Book> orderBySales(int pageNum) { return bookRepository.findAll(PageRequest.of(pageNum, 10, Sort.by(Sort.Direction.DESC, "sales"))); }
 
     @Override
     public boolean update(Book book) {
