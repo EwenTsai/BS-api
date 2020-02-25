@@ -45,6 +45,7 @@ public class CartContronller {
 	public Result delete(HttpSession hs, int bookId){
 		User user = (User)hs.getAttribute("user");
 		cartService.remove(user.getUid(), bookId);
+		System.out.println("user值=" + user + "," + "当前类=CartContronller.delete()");
 		return ResultFactory.buildSuccessResult("删除成功");
 	}
 	//购物车结算
@@ -54,18 +55,19 @@ public class CartContronller {
 		cartService.settle(amount,user.getUid());
 		return ResultFactory.buildSuccessResult("结算成功");
 	}
-	//分页显示
+	//得到购物车详情
     @RequestMapping("api/Cart")
-	public Result pagination(HttpSession hs){
+	public Result get(HttpSession hs){
 		User user = (User)hs.getAttribute("user");
-		List<Cart> carts = cartService.getCart(user.getUid());
+
+		List<Object[]> carts = cartService.getCart(user.getUid());
+
 		List<BookVo> result = new ArrayList<>();
-		for(Cart cart : carts){
-			Book book = bookService.search(cart.getBookId());
-			BookVo bookVo = new BookVo();
-			BeanUtils.copyProperties(book,bookVo);
-			result.add(bookVo);
+
+		for(Object[] o : carts ){
+			result.add(new BookVo(o));
 		}
+
 		return ResultFactory.buildSuccessResult(result);
 	}
 }
