@@ -28,6 +28,21 @@ public class CartContronller {
 	@Autowired
     private BookService bookService;
 
+	//得到购物车详情
+	@RequestMapping("api/Cart")
+	public Result get(HttpSession hs){
+		User user = (User)hs.getAttribute("user");
+
+		List<Object[]> carts = cartService.getCart(user.getUid());
+
+		List<BookVo> result = new ArrayList<>();
+
+		for(Object[] o : carts ){
+			result.add(new BookVo(o));
+		}
+		return ResultFactory.buildSuccessResult(result);
+	}
+
 	//购物车添加
 	@RequestMapping("/api/Cart/add")
 	public Result add(HttpSession hs, int bookId){
@@ -45,7 +60,6 @@ public class CartContronller {
 	public Result delete(HttpSession hs, int bookId){
 		User user = (User)hs.getAttribute("user");
 		cartService.remove(user.getUid(), bookId);
-		System.out.println("user值=" + user + "," + "当前类=CartContronller.delete()");
 		return ResultFactory.buildSuccessResult("删除成功");
 	}
 	//购物车结算
@@ -54,20 +68,5 @@ public class CartContronller {
 		User user = (User)hs.getAttribute("user");
 		cartService.settle(amount,user.getUid());
 		return ResultFactory.buildSuccessResult("结算成功");
-	}
-	//得到购物车详情
-    @RequestMapping("api/Cart")
-	public Result get(HttpSession hs){
-		User user = (User)hs.getAttribute("user");
-
-		List<Object[]> carts = cartService.getCart(user.getUid());
-
-		List<BookVo> result = new ArrayList<>();
-
-		for(Object[] o : carts ){
-			result.add(new BookVo(o));
-		}
-
-		return ResultFactory.buildSuccessResult(result);
 	}
 }

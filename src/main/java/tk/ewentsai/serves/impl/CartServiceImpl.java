@@ -3,9 +3,7 @@ package tk.ewentsai.serves.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.ewentsai.model.dao.CartRepository;
-import tk.ewentsai.model.entity.Book;
 import tk.ewentsai.model.entity.Cart;
-import tk.ewentsai.model.vo.BookVo;
 import tk.ewentsai.serves.CartService;
 
 import java.math.BigDecimal;
@@ -18,11 +16,11 @@ public class CartServiceImpl implements CartService {
     private CartRepository cartRepository;
 
     @Override
-    public List<Object[]> getCart(int uid) { return cartRepository.a(uid); }
+    public List<Object[]> getCart(int uid) { return cartRepository.getCart(uid); }
 
     @Override
     public Cart getCart(int bookId, int uid) {
-        return cartRepository.findCartByBookIdAndUid(bookId,uid);
+        return cartRepository.findCartByBookidAndUid(bookId,uid);
     }
 
     @Override
@@ -30,8 +28,14 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void add(int uid, int bookId) {
-        Cart cart = cartRepository.findCartByBookIdAndUid(bookId,uid);
-        cart.setAmount(cart.getAmount()+1);
+        Cart cart = cartRepository.findCartByBookidAndUid(bookId,uid);
+        System.out.println("cart值=" + cart + "," + "当前类=CartServiceImpl.add()");
+        //cart不等于null amount=+1 等于null创建
+        if(cart==null){
+            cart = new Cart(uid,bookId,1);
+        }else{
+            cart.setAmount(cart.getAmount()+1);
+        }
         cartRepository.save(cart);
     }
 
@@ -57,7 +61,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void remove(int uid, int bookId) { cartRepository.deleteByBookIdAndUid(bookId,uid); }
+    public void remove(int uid, int bookId) { cartRepository.deleteCartByBookidAndUid(bookId,uid); }
 
     @Override
     public void removeAll(int uid) {

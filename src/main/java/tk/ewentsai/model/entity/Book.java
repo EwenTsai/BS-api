@@ -2,10 +2,9 @@ package tk.ewentsai.model.entity;
 
 import lombok.Data;
 import lombok.ToString;
+import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -22,6 +21,7 @@ public class Book {
         private String intro;
         private BigDecimal price;
         private float rate;
+        @Column(length = 1000)
         private String aboutAuthor;
         private int stock;
         private int sales;
