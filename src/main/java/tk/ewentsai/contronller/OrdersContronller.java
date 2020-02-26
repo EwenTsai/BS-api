@@ -1,34 +1,32 @@
 package tk.ewentsai.contronller;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import tk.ewentsai.model.entity.*;
-import tk.ewentsai.serves.CartService;
 import tk.ewentsai.serves.OrdersService;
 import tk.ewentsai.serves.singalOrderService;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @CrossOrigin(allowCredentials = "true")//允许请求带上cookie
 public class OrdersContronller {
+
     @Autowired
     private OrdersService ordersService;
     @Autowired
     private singalOrderService singalOrderService;
-    @Autowired
-    private CartService cartService;
 
     //订单详情信息获取
     @RequestMapping("/api/Order/get")
     public ArrayList orderDetail(int orderId){
-        ArrayList<singalOrder> singalOrder = singalOrderService.findOrderByOrderId(orderId);
+        List<singalOrder> singalOrder = singalOrderService.findOrderByOrderId(orderId);
         Orders order = ordersService.getOrder(orderId);
         ArrayList result = new ArrayList(singalOrder);
         result.add(order);
@@ -45,10 +43,8 @@ public class OrdersContronller {
     //通过用户的uid来获取订单信息
     //分页显示
     @RequestMapping("/api/Order")
-    public PageInfo<Orders> orders(@RequestParam(defaultValue = "1") int pageNum, HttpSession hs){
+    public Page<Orders> orders(@RequestParam(defaultValue = "0") int pageNum, HttpSession hs){
         int uid = ((User)hs.getAttribute("user")).getUid();
-        PageHelper.startPage(pageNum,10);
-        PageInfo<Orders> pageInfo = new PageInfo<>(ordersService.getOrders(uid));
-        return pageInfo;
+        return ordersService.getOrders(uid, pageNum);
     }
 }

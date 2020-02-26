@@ -26,10 +26,9 @@ tk.ewentsai
 技术|说明|版本
 :--:|:--:|:--:
 SpringBoot|容器+MVC|2.2.1.RELEASE
-MyBatis|ORM框架|2.1.1
+Spring Data JPA|持久层框架｜2.2.1.RELEASE
 MySQL|数据库|5.7
 Lombok|简化封装对象工具|1.18.10
-PageHelper|MyBatis分页插件|1.2.5
 Apache shiro|安全框架|1.4.0
 JWT|JSON WEB TOKEN|3.2.0
 Google Kaptcha|验证码框架|2.3

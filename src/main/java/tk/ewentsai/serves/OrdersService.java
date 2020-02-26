@@ -1,15 +1,16 @@
 package tk.ewentsai.serves;
 
-import org.apache.ibatis.annotations.Param;
+import org.springframework.data.domain.Page;
 import tk.ewentsai.model.entity.Orders;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.List;
 
 public interface OrdersService {
-    ArrayList<Orders> returnAll();
-    ArrayList<Orders> getOrders(int uid);
+    List<Orders> returnAll();
+    Page<Orders> getOrders(int uid, int pageNum);
     Orders getOrder(int orderId);
-    void add(@Param("uid") int uid, @Param("number") int number, @Param("amount") BigDecimal amount);
+    List<Object> getOrderDetail(int orderId);
+    void add(int uid, int number, BigDecimal amount);
     void remove(int id);
 }
