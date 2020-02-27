@@ -6,10 +6,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import tk.ewentsai.model.dao.OrdersRepository;
 import tk.ewentsai.model.entity.Orders;
+import tk.ewentsai.model.vo.OrderDetailVo;
 import tk.ewentsai.serves.OrdersService;
+import tk.ewentsai.serves.singalOrderService;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,6 +18,9 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Autowired
     private OrdersRepository OrdersRepository;
+
+    @Autowired
+    private singalOrderService singalOrderService;
 
     @Override
     public List<Orders> returnAll() {
@@ -30,17 +34,22 @@ public class OrdersServiceImpl implements OrdersService {
     public Orders getOrder(int orderId) { return OrdersRepository.findOrdersById(orderId); }
 
     @Override
-    public List<Object> getOrderDetail(int orderId) {
-        List<Object> orderDetail = OrdersRepository.getOrderDetail(orderId);
-        for(Object o : orderDetail ){
-
+    public OrderDetailVo getOrderDetail(int orderId) {
+        Orders order = OrdersRepository.findOrdersById(orderId);
+        List<Object> orderDetail = OrdersRepository.getOrderDetailBookname(orderId);
+        String[] booknames = new String[orderDetail.size()];
+        for(int i = 0; i<orderDetail.size(); i++){
+            booknames[i] = (String)orderDetail.get(i);
         }
-        return null;
+        return new OrderDetailVo(orderId, order.getAmount(), booknames);
     }
 
     @Override
     public void add(int uid, int number, BigDecimal amount) { OrdersRepository.save(new Orders(uid, number, amount)); }
 
     @Override
-    public void remove(int id) { OrdersRepository.deleteById(id); }
+    public void remove(int id) {
+        OrdersRepository.deleteById(id);
+        singalOrderService.removeOrderByOrderId(id);
+    }
 }

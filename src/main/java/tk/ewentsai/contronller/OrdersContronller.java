@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import tk.ewentsai.common.Result.Result;
+import tk.ewentsai.common.Result.ResultFactory;
 import tk.ewentsai.model.entity.*;
 import tk.ewentsai.serves.OrdersService;
 import tk.ewentsai.serves.singalOrderService;
@@ -20,23 +22,14 @@ public class OrdersContronller {
 
     @Autowired
     private OrdersService ordersService;
-    @Autowired
-    private singalOrderService singalOrderService;
 
     //订单详情信息获取
     @RequestMapping("/api/Order/get")
-    public ArrayList orderDetail(int orderId){
-        List<singalOrder> singalOrder = singalOrderService.findOrderByOrderId(orderId);
-        Orders order = ordersService.getOrder(orderId);
-        ArrayList result = new ArrayList(singalOrder);
-        result.add(order);
-        return result;
-    }
+    public Result orderDetail(int orderId){ return ResultFactory.buildSuccessResult(ordersService.getOrderDetail(orderId)); }
 
     //订单删除
     @RequestMapping("/api/Order/remove")
     public void removeOrder(int orderId){
-        singalOrderService.removeOrderByOrderId(orderId);
         ordersService.remove(orderId);
     }
 

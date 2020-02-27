@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Table(name = "cart")
 public class Cart {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int uid;
     private int bookid;

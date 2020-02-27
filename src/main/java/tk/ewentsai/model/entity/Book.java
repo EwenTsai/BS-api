@@ -21,6 +21,7 @@ public class Book {
         private String intro;
         private BigDecimal price;
         private float rate;
+        @Lob  // 大对象，映射 MySQL 的 Long Text 类型
         @Column(length = 1000)
         private String aboutAuthor;
         private int stock;
