@@ -6,7 +6,7 @@ import tk.ewentsai.model.entity.Book;
 import java.util.List;
 
 public interface BookService {
-    Page<Book> findAll(int page);
+    Page<Book> findAll(int page,int num);
     Page<Book> findByStockLessThanEqual(int pageNum);
     Page<Book> search(String bookname);
     Book search(int id);

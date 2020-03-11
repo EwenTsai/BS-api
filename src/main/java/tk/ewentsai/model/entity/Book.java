@@ -26,4 +26,5 @@ public class Book {
         private String aboutAuthor;
         private int stock;
         private int sales;
+        private String imageAdress;
 }

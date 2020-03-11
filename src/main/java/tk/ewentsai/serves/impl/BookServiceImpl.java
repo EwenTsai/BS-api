@@ -16,7 +16,7 @@ public class BookServiceImpl implements BookService {
     private BookRepository bookRepository;
 
     @Override
-    public Page<Book> findAll(int page) { return bookRepository.findAll(PageRequest.of(page, 10)); }
+    public Page<Book> findAll(int page,int num) { return bookRepository.findAll(PageRequest.of(page, num)); }
     //空库存查询
     @Override
     public Page<Book> findByStockLessThanEqual(int pageNum) { return bookRepository.findByStockLessThanEqual(0, PageRequest.of(pageNum, 10)); }

@@ -27,7 +27,7 @@ public class BookContronller {
 
     //分页显示
     @RequestMapping("/api/Book")
-    public Page<Book> pagination(@RequestParam(defaultValue = "0") int pageNum){ return bookService.findAll(pageNum); }
+    public Page<Book> pagination(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int num){ return bookService.findAll(page,num); }
 
     //按书本销量排序
     @RequestMapping("/api/Book/sales")
