@@ -7,7 +7,7 @@
 ---
 ###### BS项目是基于B/S架构的购书系统，使用Springboot+MyBatis实现。主要功能包括：图书浏览、购物车管理、订单管理、会员管理、后台管理等模块
 ### 项目展示
-![image](http://github.com/EwenTsai/BS-api/raw/master/image_add_pic/首页图片.png)
+![image](https://github.com/EwenTsai/BS-api/blob/master/image_add_pic/首页图片.png)
 
 ---
 ### 组织结构
