@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import tk.ewentsai.model.entity.Book;
 import tk.ewentsai.serves.BookService;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(allowCredentials = "true")//允许请求带上cookie
 public class BookContronller {
@@ -25,13 +27,16 @@ public class BookContronller {
     @RequestMapping("/api/Book/searchBook")
     public Book search(int id) { return bookService.search(id); }
 
+    //返回所有书本
+    @RequestMapping("/api/Book/all")
+    public List<Book> all(){return bookService.findAll();};
     //分页显示
     @RequestMapping("/api/Book")
     public Page<Book> pagination(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int num){ return bookService.findAll(page,num); }
 
     //按书本销量排序
     @RequestMapping("/api/Book/sales")
-    public Page<Book> sales(@RequestParam(defaultValue = "0") int pageNum){ return bookService.orderBySales(pageNum); }
+    public Page<Book> sales(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int num){ return bookService.orderBySales(page,num); }
 
     //空库存查询
     @RequestMapping("/api/Book/stock")

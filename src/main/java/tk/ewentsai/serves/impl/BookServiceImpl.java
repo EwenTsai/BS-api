@@ -9,6 +9,8 @@ import tk.ewentsai.model.dao.BookRepository;
 import tk.ewentsai.model.entity.Book;
 import tk.ewentsai.serves.BookService;
 
+import java.util.List;
+
 @Service
 public class BookServiceImpl implements BookService {
 
@@ -17,6 +19,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Page<Book> findAll(int page,int num) { return bookRepository.findAll(PageRequest.of(page, num)); }
+
+    @Override
+    public List<Book> findAll() { return bookRepository.findAll(); }
     //空库存查询
     @Override
     public Page<Book> findByStockLessThanEqual(int pageNum) { return bookRepository.findByStockLessThanEqual(0, PageRequest.of(pageNum, 10)); }
@@ -30,7 +35,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Page<Book> orderBySales(int pageNum) { return bookRepository.findAll(PageRequest.of(pageNum, 10, Sort.by(Sort.Direction.DESC, "sales"))); }
+    public Page<Book> orderBySales(int page, int num) { return bookRepository.findAll(PageRequest.of(page, num, Sort.by(Sort.Direction.DESC, "sales"))); }
 
     @Override
     public boolean update(Book book) {

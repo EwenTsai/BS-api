@@ -5,9 +5,9 @@
 ###### BS项目是一个网上购书系统，采用最新的技术栈实现
 ### 项目介绍
 ---
-###### BS项目是基于B/S架构的购书系统，使用Springboot+MyBatis实现。主要功能包括：图书浏览、购物车管理、订单管理、会员管理等模块
+###### BS项目是基于B/S架构的购书系统，使用Springboot+MyBatis实现。主要功能包括：图书浏览、购物车管理、订单管理、会员管理、后台管理等模块
 ### 项目展示
-
+![image](http://github.com/EwenTsai/BS-api/raw/master/image_add_pic/首页图片.png)
 
 ---
 ### 组织结构
@@ -26,7 +26,7 @@ tk.ewentsai
 技术|说明|版本
 :--:|:--:|:--:
 SpringBoot|容器+MVC|2.2.1.RELEASE
-Spring Data JPA|持久层框架｜2.2.1.RELEASE
+Spring Data JPA|持久层框架|2.2.1.RELEASE
 MySQL|数据库|5.7
 Lombok|简化封装对象工具|1.18.10
 Apache shiro|安全框架|1.4.0
