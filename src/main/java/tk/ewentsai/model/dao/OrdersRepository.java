@@ -13,7 +13,7 @@ import java.util.List;
 public interface OrdersRepository extends JpaRepository<Orders,String> {
 
     List<Orders> findAll();
-    Page<Orders> findOrdersByUid(int uid, Pageable pageable);
+    Page<Orders> findOrdersByUid(String uid, Pageable pageable);
     Orders findOrdersById(int id);
     //获取订单详情信息SQL
     @Query(nativeQuery = true,

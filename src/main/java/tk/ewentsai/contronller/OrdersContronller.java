@@ -37,7 +37,7 @@ public class OrdersContronller {
     //分页显示
     @RequestMapping("/api/Order")
     public Page<Orders> orders(@RequestParam(defaultValue = "0") int pageNum, HttpSession hs){
-        int uid = ((User)hs.getAttribute("user")).getUid();
+        String uid = ((User)hs.getAttribute("user")).getUid();
         return ordersService.getOrders(uid, pageNum);
     }
 }

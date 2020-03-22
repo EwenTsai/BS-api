@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface OrdersService {
     List<Orders> returnAll();
-    Page<Orders> getOrders(int uid, int pageNum);
+    Page<Orders> getOrders(String uid, int pageNum);
     Orders getOrder(int orderId);
     OrderDetailVo getOrderDetail(int orderId);
-    void add(int uid, int number, BigDecimal amount);
+    void add(String uid, int number, BigDecimal amount);
     void remove(int id);
 }

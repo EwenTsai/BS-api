@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User check(int uid) { return userRepository.findUserByUid(uid); }
+    public User check(String uid) { return userRepository.findUserByUid(uid); }
 
     @Override
     public String register(registerInfoVo registerInfoVo) {
@@ -60,6 +60,32 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
             return null;
         }
+    }
+
+    @Override
+    public String WXRegister(String openid) {
+        User user = userRepository.findUserByUid(openid);
+        //第一次登陆的微信用户进行记录
+        if(user==null){
+            System.out.println("openid值=" + openid + "," + "当前类=UserServiceImpl.WXRegister()");
+            user = new User();
+            user.setUid(openid);
+            user.setUname("空");
+            SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间
+            sdf.applyPattern("yyyy-MM-dd");
+            Date date = new Date();// 获取当前时间
+            user.setBirthday(sdf.format(date));
+
+            user.setAge("0");
+            user.setSex("1");
+            user.setImageAdress("images/0.jpg");
+            user.setRole("wxUser");
+            user.setState(1);
+            System.out.println(user);
+
+            userRepository.save(user);
+        }
+        return "登陆成功";
     }
 
     @Override

@@ -6,5 +6,5 @@ import tk.ewentsai.model.entity.User;
 public interface UserRepository extends JpaRepository<User,String> {
     User findUserByUname(String uname);
     User findUserByUnameAndPwd(String uname, String pwd);
-    User findUserByUid(int uid);
+    User findUserByUid(String uid);
 }

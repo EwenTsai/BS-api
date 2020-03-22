@@ -1,16 +1,19 @@
 package tk.ewentsai.model.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Data
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
+@ToString
 public class User {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int uid;
+	private String uid;
 	private String uname;
 	private String pwd;
 	private String sex;

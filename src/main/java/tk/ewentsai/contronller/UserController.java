@@ -68,7 +68,7 @@ public class UserController {
     }
     //使用cookie实现免登录
     @RequestMapping("/api/user/check")
-    public Result check(int uid,HttpSession hs) {
+    public Result check(String uid,HttpSession hs) {
         User user = userService.check(uid);
         boolean isAdmin = false;
         //无此uid用户

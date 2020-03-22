@@ -15,11 +15,11 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int uid;
+    private String uid;
     private int bookid;
     private int amount;
 
-    public Cart(int uid, int bookid, int amount) {
+    public Cart(String uid, int bookid, int amount) {
         this.uid = uid;
         this.bookid = bookid;
         this.amount = amount;

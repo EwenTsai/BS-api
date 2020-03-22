@@ -28,7 +28,7 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public Page<Orders> getOrders(int uid, int pageNum) { return OrdersRepository.findOrdersByUid(uid, PageRequest.of(pageNum, 10)); }
+    public Page<Orders> getOrders(String uid, int pageNum) { return OrdersRepository.findOrdersByUid(uid, PageRequest.of(pageNum, 10)); }
 
     @Override
     public Orders getOrder(int orderId) { return OrdersRepository.findOrdersById(orderId); }
@@ -45,7 +45,7 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public void add(int uid, int number, BigDecimal amount) { OrdersRepository.save(new Orders(uid, number, amount)); }
+    public void add(String uid, int number, BigDecimal amount) { OrdersRepository.save(new Orders(uid, number, amount)); }
 
     @Override
     public void remove(int id) {
