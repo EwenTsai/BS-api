@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String WXRegister(String openid) {
+    public User WXRegister(String openid) {
         User user = userRepository.findUserByUid(openid);
         //第一次登陆的微信用户进行记录
         if(user==null){
@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
 
             userRepository.save(user);
         }
-        return "登陆成功";
+        return user;
     }
 
     @Override

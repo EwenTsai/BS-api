@@ -11,6 +11,7 @@ import tk.ewentsai.model.entity.User;
 import tk.ewentsai.model.vo.BookVo;
 import tk.ewentsai.serves.BookService;
 import tk.ewentsai.serves.CartService;
+import tk.ewentsai.serves.UserService;
 
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
@@ -28,10 +29,9 @@ public class CartContronller {
 
 	//得到购物车详情
 	@RequestMapping("api/Cart")
-	public Result get(HttpSession hs){
-		User user = (User)hs.getAttribute("user");
+	public Result get(String uid){
 
-		List<Object[]> carts = cartService.getCart(user.getUid());
+		List<Object[]> carts = cartService.getCart(uid);
 
 		List<BookVo> result = new ArrayList<>();
 
@@ -43,28 +43,25 @@ public class CartContronller {
 
 	//购物车添加
 	@RequestMapping("/api/Cart/add")
-	public Result add(HttpSession hs, int bookId){
-		User user = (User)hs.getAttribute("user");
+	public Result add(String uid, int bookId){
 		Book book = bookService.search(bookId);
 		if(book.getStock()==0){
 			return ResultFactory.buildFailResult("库存为0");
 		}else{
-			cartService.add(user.getUid(),bookId);
+			cartService.add(uid,bookId);
 			return ResultFactory.buildSuccessResult("添加成功");
 		}
 	}
 	//购物车删除
 	@RequestMapping("/api/Cart/delete")
-	public Result delete(HttpSession hs, int bookId){
-		User user = (User)hs.getAttribute("user");
-		cartService.remove(user.getUid(), bookId);
+	public Result delete(String uid, int bookId){
+		cartService.remove(uid, bookId);
 		return ResultFactory.buildSuccessResult("删除成功");
 	}
 	//购物车结算
 	@RequestMapping("/api/Cart/settle")
-	public Result settle(BigDecimal amount, HttpSession hs){
-		User user = (User)hs.getAttribute("user");
-		cartService.settle(amount,user.getUid());
+	public Result settle(String uid, BigDecimal amount){
+		cartService.settle(amount,uid);
 		return ResultFactory.buildSuccessResult("结算成功");
 	}
 }

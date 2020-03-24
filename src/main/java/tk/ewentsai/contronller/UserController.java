@@ -68,30 +68,29 @@ public class UserController {
     }
     //使用cookie实现免登录
     @RequestMapping("/api/user/check")
-    public Result check(String uid,HttpSession hs) {
+    public Result check(String uid) {
         User user = userService.check(uid);
         boolean isAdmin = false;
         //无此uid用户
         if(user==null){
             return ResultFactory.buildFailResult("无此用户");
         }
-        //将user的信息放入session中
-        hs.setAttribute("user", user);
+
         UserVo userVo = new UserVo();
         BeanUtils.copyProperties(user,userVo);
         return ResultFactory.buildSuccessResult(userVo);
     }
     //获取用户信息
     @RequestMapping("/api/user/get")
-    public Result get(HttpSession hs){
+    public Result get(String uid){
         UserVo userVo = new UserVo();
-        BeanUtils.copyProperties(hs.getAttribute("user"),userVo);
+        BeanUtils.copyProperties(userService.check(uid),userVo);
         return ResultFactory.buildSuccessResult(userVo);
     }
     //修改用户信息
     @RequestMapping("/api/user/update")
-    public Result update(updateUserVo updateUserVo,HttpSession hs) throws ParseException {
-        User user = (User)hs.getAttribute("user");
+    public Result update(updateUserVo updateUserVo,String uid) throws ParseException {
+        User user = userService.check(uid);
         //时间格式转换
         DateFormat dft = new SimpleDateFormat("yyyy-MM-dd");
         Date birthday = dft.parse(updateUserVo.getBirthday());

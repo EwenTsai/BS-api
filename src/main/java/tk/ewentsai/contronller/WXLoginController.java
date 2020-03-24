@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 import tk.ewentsai.common.Result.Result;
 import tk.ewentsai.common.Result.ResultFactory;
 import tk.ewentsai.common.unit.HttpRequest;
+import tk.ewentsai.model.entity.User;
 import tk.ewentsai.serves.UserService;
+
+import javax.servlet.http.HttpSession;
 
 @RestController
 @CrossOrigin(allowCredentials = "true")//允许请求带上cookie
@@ -21,7 +24,7 @@ public class WXLoginController {
     private static final String secret = "5efdbb85521eed60f1a606d14b1b90f9";
 
     @RequestMapping("/api/user/wxLogin")
-    public Result wxLogin(String code){
+    public Result wxLogin(String code, HttpSession hs){
         boolean isLogin = false;
         /**
          * 登录凭证校验。通过 wx.login 接口获得临时登录凭证 code 后传到开发者服务器调用此接口完成登录流程。
@@ -39,7 +42,9 @@ public class WXLoginController {
         if(jsonObject.get("openid")!=null){
             isLogin = true;
         }
-        userService.WXRegister((String) jsonObject.get("openid"));
-        return ResultFactory.buildSuccessResult(isLogin);
+        //微信第一次登陆进行信息录入
+        User user = userService.WXRegister((String) jsonObject.get("openid"));
+
+        return ResultFactory.buildSuccessResult(jsonObject.get("openid"));
     }
 }
