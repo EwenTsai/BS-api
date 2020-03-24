@@ -25,11 +25,11 @@ public class OrdersContronller {
 
     //订单详情信息获取
     @RequestMapping("/api/Order/get")
-    public Result orderDetail(int orderId){ return ResultFactory.buildSuccessResult(ordersService.getOrderDetail(orderId)); }
+    public Result orderDetail(String orderId){ return ResultFactory.buildSuccessResult(ordersService.getOrderDetail(orderId)); }
 
     //订单删除
     @RequestMapping("/api/Order/remove")
-    public void removeOrder(int orderId){
+    public void removeOrder(String orderId){
         ordersService.remove(orderId);
     }
 

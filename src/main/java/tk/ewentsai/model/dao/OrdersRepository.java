@@ -14,16 +14,16 @@ public interface OrdersRepository extends JpaRepository<Orders,String> {
 
     List<Orders> findAll();
     Page<Orders> findOrdersByUid(String uid, Pageable pageable);
-    Orders findOrdersById(int id);
+    Orders findOrdersById(String id);
     //获取订单详情信息SQL
     @Query(nativeQuery = true,
             value = "select books.bookname " +
                     "from orders, singal_order, books " +
                     "where orders.id = singal_order.order_id = ?1 " +
                     "and books.id = singal_order.book_id")
-    List<Object> getOrderDetailBookname(int orderId);
+    List<Object> getOrderDetailBookname(String orderId);
     @Modifying
     @Transactional
-    void deleteById(int id);
+    void deleteById(String id);
 
 }

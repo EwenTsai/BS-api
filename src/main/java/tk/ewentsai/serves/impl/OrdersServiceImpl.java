@@ -31,10 +31,10 @@ public class OrdersServiceImpl implements OrdersService {
     public Page<Orders> getOrders(String uid, int pageNum) { return OrdersRepository.findOrdersByUid(uid, PageRequest.of(pageNum, 10)); }
 
     @Override
-    public Orders getOrder(int orderId) { return OrdersRepository.findOrdersById(orderId); }
+    public Orders getOrder(String orderId) { return OrdersRepository.findOrdersById(orderId); }
 
     @Override
-    public OrderDetailVo getOrderDetail(int orderId) {
+    public OrderDetailVo getOrderDetail(String orderId) {
         Orders order = OrdersRepository.findOrdersById(orderId);
         List<Object> orderDetail = OrdersRepository.getOrderDetailBookname(orderId);
         String[] booknames = new String[orderDetail.size()];
@@ -44,11 +44,11 @@ public class OrdersServiceImpl implements OrdersService {
         return new OrderDetailVo(orderId, order.getAmount(), booknames);
     }
 
-    @Override
-    public void add(String uid, int number, BigDecimal amount) { OrdersRepository.save(new Orders(uid, number, amount)); }
+//    @Override
+//    public void add(String uid, int number, BigDecimal amount) { OrdersRepository.save(new Orders(uid, number, amount)); }
 
     @Override
-    public void remove(int id) {
+    public void remove(String id) {
         OrdersRepository.deleteById(id);
         singalOrderService.removeOrderByOrderId(id);
     }

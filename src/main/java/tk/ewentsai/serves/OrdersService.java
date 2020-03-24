@@ -10,8 +10,8 @@ import java.util.List;
 public interface OrdersService {
     List<Orders> returnAll();
     Page<Orders> getOrders(String uid, int pageNum);
-    Orders getOrder(int orderId);
-    OrderDetailVo getOrderDetail(int orderId);
-    void add(String uid, int number, BigDecimal amount);
-    void remove(int id);
+    Orders getOrder(String orderId);
+    OrderDetailVo getOrderDetail(String orderId);
+//    void add(String uid, int number, BigDecimal amount);
+    void remove(String id);
 }

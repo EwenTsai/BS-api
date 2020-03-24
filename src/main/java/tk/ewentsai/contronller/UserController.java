@@ -89,8 +89,8 @@ public class UserController {
     }
     //修改用户信息
     @RequestMapping("/api/user/update")
-    public Result update(updateUserVo updateUserVo,String uid) throws ParseException {
-        User user = userService.check(uid);
+    public Result update(updateUserVo updateUserVo) throws ParseException {
+        User user = userService.check(updateUserVo.getUid());
         //时间格式转换
         DateFormat dft = new SimpleDateFormat("yyyy-MM-dd");
         Date birthday = dft.parse(updateUserVo.getBirthday());

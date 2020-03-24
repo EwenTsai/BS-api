@@ -15,8 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Orders {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private String id;
     private String uid;
     private int number;
     private BigDecimal amount;
@@ -27,7 +26,8 @@ public class Orders {
     //mappedBy="author"中的author是Article中的author属性
     private singalOrder singalOrder;
 
-    public Orders(String uid, int number, BigDecimal amount){
+    public Orders(String id, String uid, int number, BigDecimal amount){
+        this.id = id;
         this.uid = uid;
         this.number = number;
         this.amount = amount;

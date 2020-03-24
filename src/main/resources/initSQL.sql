@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 10/03/2020 22:19:03
+ Date: 24/03/2020 22:00:40
 */
 
 SET NAMES utf8mb4;
@@ -58,12 +58,12 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `cart`;
 CREATE TABLE `cart` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `amount` int(11) NOT NULL,
   `bookid` int(11) NOT NULL,
-  `uid` int(11) NOT NULL,
+  `uid` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for e_books
@@ -71,79 +71,37 @@ CREATE TABLE `cart` (
 DROP TABLE IF EXISTS `e_books`;
 CREATE TABLE `e_books` (
   `id` int(11) NOT NULL,
-  `bookname` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `download_link` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `bookname` varchar(255) DEFAULT NULL,
+  `download_link` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- ----------------------------
--- Records of e_books
--- ----------------------------
-BEGIN;
-INSERT INTO `e_books` VALUES (1, '编程珠玑', '编程珠玑.pdf');
-COMMIT;
-
--- ----------------------------
--- Table structure for hibernate_sequence
--- ----------------------------
-DROP TABLE IF EXISTS `hibernate_sequence`;
-CREATE TABLE `hibernate_sequence` (
-  `next_val` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- ----------------------------
--- Records of hibernate_sequence
--- ----------------------------
-BEGIN;
-INSERT INTO `hibernate_sequence` VALUES (2);
-INSERT INTO `hibernate_sequence` VALUES (2);
-COMMIT;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for orders
 -- ----------------------------
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` varchar(255) NOT NULL,
   `amount` decimal(19,2) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `number` int(11) NOT NULL,
-  `uid` int(11) NOT NULL,
-  `singal_order_list_id` int(11) DEFAULT NULL,
+  `uid` varchar(255) DEFAULT NULL,
   `singal_order_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FKos1f0es117g2sofm6yniyfe72` (`singal_order_list_id`),
   KEY `FK5b6lmhf0wumycacs4k6i5siwl` (`singal_order_id`),
-  CONSTRAINT `FK5b6lmhf0wumycacs4k6i5siwl` FOREIGN KEY (`singal_order_id`) REFERENCES `singal_order` (`id`),
-  CONSTRAINT `FKos1f0es117g2sofm6yniyfe72` FOREIGN KEY (`singal_order_list_id`) REFERENCES `singal_order` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- ----------------------------
--- Records of orders
--- ----------------------------
-BEGIN;
-INSERT INTO `orders` VALUES (1, 123.00, '2020-02-26 21:46:48', 2, 1, NULL, NULL);
-COMMIT;
+  CONSTRAINT `FK5b6lmhf0wumycacs4k6i5siwl` FOREIGN KEY (`singal_order_id`) REFERENCES `singal_order` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for singal_order
 -- ----------------------------
 DROP TABLE IF EXISTS `singal_order`;
 CREATE TABLE `singal_order` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `book_id` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL,
-  `orders_id` int(11) NOT NULL,
+  `order_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- ----------------------------
--- Records of singal_order
--- ----------------------------
-BEGIN;
-INSERT INTO `singal_order` VALUES (1, 2, 1, 0);
-INSERT INTO `singal_order` VALUES (2, 1, 1, 0);
-COMMIT;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for singal_order_orders
@@ -151,35 +109,35 @@ COMMIT;
 DROP TABLE IF EXISTS `singal_order_orders`;
 CREATE TABLE `singal_order_orders` (
   `singal_order_id` int(11) NOT NULL,
-  `orders_id` int(11) NOT NULL,
+  `orders_id` varchar(255) NOT NULL,
   UNIQUE KEY `UK_rhukxjj4r6sdau43fmqsut3jm` (`orders_id`),
   KEY `FKkdkj502x2wycmwxavtedv4ri8` (`singal_order_id`),
   CONSTRAINT `FKb47b4fl9uauohdpl5u9tx6rnf` FOREIGN KEY (`orders_id`) REFERENCES `orders` (`id`),
   CONSTRAINT `FKkdkj502x2wycmwxavtedv4ri8` FOREIGN KEY (`singal_order_id`) REFERENCES `singal_order` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for users
 -- ----------------------------
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-  `uid` int(11) NOT NULL,
-  `age` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `birthday` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `image_adress` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `pwd` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `role` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `sex` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `uid` varchar(255) NOT NULL,
+  `age` varchar(255) DEFAULT NULL,
+  `birthday` varchar(255) DEFAULT NULL,
+  `image_adress` varchar(255) DEFAULT NULL,
+  `pwd` varchar(255) DEFAULT NULL,
+  `role` varchar(255) DEFAULT NULL,
+  `sex` varchar(255) DEFAULT NULL,
   `state` int(11) NOT NULL,
-  `uname` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `uname` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
 BEGIN;
-INSERT INTO `users` VALUES (1, '12', '2019-3-21', 'a', 'root', 'admin', '1', 1, 'root');
+INSERT INTO `users` VALUES ('1', '1', '2020-01-01', NULL, 'root', NULL, NULL, 1, 'root');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

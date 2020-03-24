@@ -7,6 +7,6 @@ import java.util.List;
 public interface singalOrderService {
     List<singalOrder> findOrderByOrderId(int orderId);
 //    int findOrderId();
-    void addOrder( int orderId, int bookId);
-    void removeOrderByOrderId(int orderId);
+    void addOrder(String orderId, int bookId);
+    void removeOrderByOrderId(String orderId);
 }

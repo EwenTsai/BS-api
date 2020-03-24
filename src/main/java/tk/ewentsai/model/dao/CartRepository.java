@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import tk.ewentsai.model.entity.Cart;
+import tk.ewentsai.model.vo.BookVo;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -21,6 +22,8 @@ public interface CartRepository extends JpaRepository<Cart,String> {
     @Modifying
     @Query("update Cart set amount = ?1 where uid = ?2 and bookid = ?3")
     void setAmountFor(int amount, String uid, int book_id);
+
+    List<BookVo> findCartsByUid(String uid);
 
     //使用spring data jpa 的删除操作，需要加注解@Modifying     @Transactional
     // 否则报错如下： No EntityManager with actual transaction available for current thread - cannot reliably process 'remove' call

@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class OrderDetailVo {
 
-    private int OrderId;
+    private String OrderId;
     private BigDecimal amount;
     private String[] booknames;
 

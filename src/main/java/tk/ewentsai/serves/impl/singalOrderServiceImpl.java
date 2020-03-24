@@ -24,8 +24,8 @@ public class singalOrderServiceImpl implements singalOrderService {
 //    }
 
     @Override
-    public void addOrder(int orderId, int bookId) { singalOrderRepository.save(new singalOrder(orderId, bookId)); }
+    public void addOrder(String orderId, int bookId) { singalOrderRepository.save(new singalOrder(orderId, bookId)); }
 
     @Override
-    public void removeOrderByOrderId(int orderId) { singalOrderRepository.deleteByOrderId(orderId); }
+    public void removeOrderByOrderId(String orderId) { singalOrderRepository.deleteByOrderId(orderId); }
 }

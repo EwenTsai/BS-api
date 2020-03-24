@@ -12,5 +12,5 @@ public interface singalOrderRepository extends JpaRepository<singalOrder,String>
     int findByBookIdIsNull();
     @Modifying
     @Transactional
-    void deleteByOrderId(int orderId);
+    void deleteByOrderId(String orderId);
 }

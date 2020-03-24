@@ -14,14 +14,14 @@ public class singalOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int orderId;
+    private String orderId;
     private int bookId;
 
     @OneToMany//可选属性optional=false,表示orders不能为空。
 //    @JoinColumn//设置在article表中的关联字段(外键)
     private List<Orders> orders;
 
-    public singalOrder(int orderId, int bookId){
+    public singalOrder(String orderId, int bookId){
         this.orderId = orderId;
         this.bookId = bookId;
     }
