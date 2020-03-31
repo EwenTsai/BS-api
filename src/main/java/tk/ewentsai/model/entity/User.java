@@ -29,4 +29,6 @@ public class User {
 	@JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "uid") }, inverseJoinColumns = {
 			@JoinColumn(name = "rid") })
 	private List<SysRole> roles;
+
+	public String getCredentialsSalt(){ return uname+salt; }
 }

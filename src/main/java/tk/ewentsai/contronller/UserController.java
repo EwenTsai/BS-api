@@ -1,5 +1,10 @@
 package tk.ewentsai.contronller;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 import tk.ewentsai.common.Result.Result;
@@ -37,19 +42,21 @@ public class UserController {
             return ResultFactory.buildFailResult("验证码错误");
         }
         //检查用户名和密码是否正确
-        User user = userService.login(loginInfoVo.getUname(),loginInfoVo.getPwd());
-        if(user!=null){
-            //转化为vo对象
-            UserVo userVo = new UserVo();
-            BeanUtils.copyProperties(user,userVo);
-            //将user的信息放入session中
-            hs.setAttribute("user", user);
-            //将用户购物车的信息放入session中
-//            hs.setAttribute("Carts", cartService.getCart(user.getUid()));
-            return ResultFactory.buildSuccessResult(userVo);
-        }else{
-            return ResultFactory.buildFailResult("用户名或密码错误");
+        UsernamePasswordToken token = new UsernamePasswordToken(loginInfoVo.getUname(),loginInfoVo.getPwd());
+        Subject subject = SecurityUtils.getSubject();
+
+        try {
+            subject.login(token);
+        } catch (IncorrectCredentialsException ice) {
+            return ResultFactory.buildFailResult("密码错误");
+        } catch (UnknownAccountException uae) {
+            return ResultFactory.buildFailResult("用户名错误");
         }
+
+        User user = userService.findUserByUsername(loginInfoVo.getUname());
+        subject.getSession().setAttribute("user", user);
+        return ResultFactory.buildSuccessResult("登陆成功");
+
     }
     //注册
     @RequestMapping(value = "/api/user/register",produces = {"application/json;charset=UTF-8"})
@@ -67,19 +74,19 @@ public class UserController {
         }
     }
     //使用cookie实现免登录
-    @RequestMapping("/api/user/check")
-    public Result check(String uid) {
-        User user = userService.check(uid);
-        boolean isAdmin = false;
-        //无此uid用户
-        if(user==null){
-            return ResultFactory.buildFailResult("无此用户");
-        }
-
-        UserVo userVo = new UserVo();
-        BeanUtils.copyProperties(user,userVo);
-        return ResultFactory.buildSuccessResult(userVo);
-    }
+//    @RequestMapping("/api/user/check")
+//    public Result check(String uid) {
+//        User user = userService.check(uid);
+//        boolean isAdmin = false;
+//        //无此uid用户
+//        if(user==null){
+//            return ResultFactory.buildFailResult("无此用户");
+//        }
+//
+//        UserVo userVo = new UserVo();
+//        BeanUtils.copyProperties(user,userVo);
+//        return ResultFactory.buildSuccessResult(userVo);
+//    }
     //获取用户信息
     @RequestMapping("/api/user/get")
     public Result get(String uid){

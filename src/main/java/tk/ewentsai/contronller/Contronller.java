@@ -4,6 +4,8 @@ import com.google.code.kaptcha.impl.DefaultKaptcha;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import tk.ewentsai.common.Result.Result;
+import tk.ewentsai.common.Result.ResultFactory;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -49,5 +51,10 @@ public class Contronller {
         os.write(bytes);
         os.flush();
         os.close();
+    }
+    //您未获得权限
+    @RequestMapping("/api/unauthc")
+    public Result unauthc(){
+        return ResultFactory.buildFailResult("您未拥有权限");
     }
 }

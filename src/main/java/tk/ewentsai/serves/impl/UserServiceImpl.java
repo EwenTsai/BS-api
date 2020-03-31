@@ -1,6 +1,7 @@
 package tk.ewentsai.serves.impl;
 
 import org.springframework.beans.BeanUtils;
+import tk.ewentsai.common.shiro.PasswordHelper;
 import tk.ewentsai.model.dao.UserRepository;
 import tk.ewentsai.model.entity.User;
 import tk.ewentsai.model.vo.registerInfoVo;
@@ -36,11 +37,11 @@ public class UserServiceImpl implements UserService {
         }
         //检查用户名长度
         if(registerInfoVo.getUname().length()<6 || registerInfoVo.getUname().length()>15){
-            return "用户名格式错误";
+            return "用户名格式错误:用户名长度需要大于6位，小于15位";
         }
         //检查密码长度
         if(registerInfoVo.getPwd().length()<6 || registerInfoVo.getPwd().length()>25){
-            return "密码格式错误";
+            return "密码格式错误:密码长度需要大于6位，小于25位";
         }
         //检查用户名是否已存在
         if(userRepository.findUserByUname(registerInfoVo.getUname())!=null){
@@ -60,6 +61,7 @@ public class UserServiceImpl implements UserService {
 //            user.setRole("user");
             user.setState(1);
 
+            PasswordHelper.encryptPassword(user);
             userRepository.save(user);
             return null;
         }
@@ -84,7 +86,6 @@ public class UserServiceImpl implements UserService {
             user.setImageAdress("images/0.jpg");
 //            user.setRole("wxUser");
             user.setState(1);
-            System.out.println(user);
 
             userRepository.save(user);
         }
