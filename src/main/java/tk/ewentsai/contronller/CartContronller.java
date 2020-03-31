@@ -36,7 +36,8 @@ public class CartContronller {
 		List<BookVo> result = new ArrayList<>();
 
 		for(Object[] o : carts ){
-			result.add(new BookVo(o));
+			Book book = bookService.search((int)o[0]);
+			result.add(new BookVo(o, book.getImageAdress()));
 		}
 		return ResultFactory.buildSuccessResult(result);
 	}
@@ -45,6 +46,7 @@ public class CartContronller {
 	@RequestMapping("/api/Cart/add")
 	public Result add(String uid, int bookId){
 		Book book = bookService.search(bookId);
+		System.out.println("uid值=" + uid + "," + "当前类=CartContronller.add()");
 		if(book.getStock()==0){
 			return ResultFactory.buildFailResult("库存为0");
 		}else{

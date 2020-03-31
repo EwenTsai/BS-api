@@ -18,10 +18,10 @@ public class Cart {
     private int bookid;
     private int amount;
 
-    public Cart(String uid, int bookid, int amount) {
+    public Cart(String uid, int bookid) {
         this.uid = uid;
         this.bookid = bookid;
-        this.amount = amount;
+        this.amount = 1;
     }
 
 }

@@ -11,4 +11,5 @@ public interface UserService {
     User WXRegister(String openid);
     void update(String uname, String pwd, String sex, Date birthday);
     User check(String uid);
+    User findUserByUsername(String username);
 }

@@ -24,7 +24,7 @@ public class WXLoginController {
     private static final String secret = "5efdbb85521eed60f1a606d14b1b90f9";
 
     @RequestMapping("/api/user/wxLogin")
-    public Result wxLogin(String code, HttpSession hs){
+    public Result wxLogin(String code){
         boolean isLogin = false;
         /**
          * 登录凭证校验。通过 wx.login 接口获得临时登录凭证 code 后传到开发者服务器调用此接口完成登录流程。

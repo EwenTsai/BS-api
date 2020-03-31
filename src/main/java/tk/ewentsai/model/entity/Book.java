@@ -14,6 +14,7 @@ import java.util.Date;
 @Table(name = "books")
 public class Book {
         @Id
+        @GeneratedValue
         private int id;
         private String bookname;
         private String author;

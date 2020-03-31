@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -13,13 +14,19 @@ import javax.persistence.*;
 @ToString
 public class User {
 	@Id
-	private String uid;
+	@GeneratedValue
+	private int uid;
 	private String uname;
 	private String pwd;
+	private String salt;
 	private String sex;
 	private String age;
 	private String birthday;
 	private String imageAdress;
-	private String role;
 	private int state;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "uid") }, inverseJoinColumns = {
+			@JoinColumn(name = "rid") })
+	private List<SysRole> roles;
 }

@@ -41,7 +41,7 @@ public class CartServiceImpl implements CartService {
         Cart cart = cartRepository.findCartByBookidAndUid(bookId,uid);
         //cart不等于null amount=+1 等于null创建
         if(cart==null){
-            cart = new Cart(uid,bookId,1);
+            cart = new Cart(uid,bookId);
         }else{
             cart.setAmount(cart.getAmount()+1);
         }
@@ -52,11 +52,11 @@ public class CartServiceImpl implements CartService {
     public void settle(BigDecimal amount, String uid) {
         //生成uuid
         String orderId = UUID.randomUUID().toString().replace("-", "").toLowerCase();
-        List<BookVo> carts = cartRepository.findCartsByUid(uid);
+        List<Cart> carts = cartRepository.findCartsByUid(uid);
         ordersRepository.save(new Orders(orderId, uid,carts.size(), amount));
 
-        for(BookVo vo: carts){
-            singalOrderRepository.save(new singalOrder(orderId, vo.getId()));
+        for(Cart cart: carts){
+            singalOrderRepository.save(new singalOrder(orderId, cart.getBookid()));
         }
 
         //结算成功移除购物车商品

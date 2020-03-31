@@ -26,6 +26,9 @@ public class UserServiceImpl implements UserService {
     public User check(String uid) { return userRepository.findUserByUid(uid); }
 
     @Override
+    public User findUserByUsername(String username) { return userRepository.findUserByUname(username); }
+
+    @Override
     public String register(registerInfoVo registerInfoVo) {
         //检验两次密码是否一致
         if(!registerInfoVo.getPwd().equals(registerInfoVo.getRePwd())){
@@ -54,7 +57,7 @@ public class UserServiceImpl implements UserService {
             user.setAge("0");
             user.setSex("1");
             user.setImageAdress("images/0.jpg");
-            user.setRole("user");
+//            user.setRole("user");
             user.setState(1);
 
             userRepository.save(user);
@@ -69,8 +72,8 @@ public class UserServiceImpl implements UserService {
         if(user==null){
             System.out.println("openid值=" + openid + "," + "当前类=UserServiceImpl.WXRegister()");
             user = new User();
-            user.setUid(openid);
-            user.setUname("空");
+//            user.setUid(openid);
+            user.setUname(openid);
             SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间
             sdf.applyPattern("yyyy-MM-dd");
             Date date = new Date();// 获取当前时间
@@ -79,7 +82,7 @@ public class UserServiceImpl implements UserService {
             user.setAge("0");
             user.setSex("1");
             user.setImageAdress("images/0.jpg");
-            user.setRole("wxUser");
+//            user.setRole("wxUser");
             user.setState(1);
             System.out.println(user);
 
