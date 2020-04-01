@@ -14,11 +14,11 @@ import javax.persistence.*;
 public class Cart {
     @Id
     private int id;
-    private String uid;
+    private int uid;
     private int bookid;
     private int amount;
 
-    public Cart(String uid, int bookid) {
+    public Cart(int uid, int bookid) {
         this.uid = uid;
         this.bookid = bookid;
         this.amount = 1;

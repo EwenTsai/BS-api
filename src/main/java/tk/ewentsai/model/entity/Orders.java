@@ -16,7 +16,7 @@ import java.util.List;
 public class Orders {
     @Id
     private String id;
-    private String uid;
+    private int uid;
     private int number;
     private BigDecimal amount;
     private Date createTime;
@@ -26,7 +26,7 @@ public class Orders {
     //mappedBy="author"中的author是Article中的author属性
     private singalOrder singalOrder;
 
-    public Orders(String id, String uid, int number, BigDecimal amount){
+    public Orders(String id, int uid, int number, BigDecimal amount){
         this.id = id;
         this.uid = uid;
         this.number = number;

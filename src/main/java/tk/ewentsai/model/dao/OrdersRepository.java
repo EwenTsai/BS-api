@@ -13,13 +13,13 @@ import java.util.List;
 public interface OrdersRepository extends JpaRepository<Orders,String> {
 
     List<Orders> findAll();
-    Page<Orders> findOrdersByUid(String uid, Pageable pageable);
+    Page<Orders> findOrdersByUid(int uid, Pageable pageable);
     Orders findOrdersById(String id);
     //获取订单详情信息SQL
     @Query(nativeQuery = true,
             value = "select books.bookname " +
                     "from orders, singal_order, books " +
-                    "where orders.id = singal_order.order_id = ?1 " +
+                    "where singal_order.order_id = ?1 " +
                     "and books.id = singal_order.book_id")
     List<Object> getOrderDetailBookname(String orderId);
     @Modifying

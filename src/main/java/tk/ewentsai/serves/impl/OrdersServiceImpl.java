@@ -28,7 +28,7 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public Page<Orders> getOrders(String uid, int pageNum) { return OrdersRepository.findOrdersByUid(uid, PageRequest.of(pageNum, 10)); }
+    public Page<Orders> getOrders(int uid, int pageNum) { return OrdersRepository.findOrdersByUid(uid, PageRequest.of(pageNum, 10)); }
 
     @Override
     public Orders getOrder(String orderId) { return OrdersRepository.findOrdersById(orderId); }

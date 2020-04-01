@@ -16,21 +16,21 @@ public interface CartRepository extends JpaRepository<Cart,String> {
             value = "select books.id,books.bookname, books.price, cart.amount " +
                     "from books, cart " +
                     "where cart.uid = ?1 and cart.bookid = books.id")
-    List<Object[]> getCart(String uid);
-    Cart findCartByBookidAndUid(int bookid, String uid);
+    List<Object[]> getCart(int uid);
+    Cart findCartByBookidAndUid(int bookid, int uid);
     //modifying 注解标示update sql
     @Modifying
     @Query("update Cart set amount = ?1 where uid = ?2 and bookid = ?3")
-    void setAmountFor(int amount, String uid, int book_id);
+    void setAmountFor(int amount, int uid, int book_id);
 
-    List<Cart> findCartsByUid(String uid);
+    List<Cart> findCartsByUid(int uid);
 
     //使用spring data jpa 的删除操作，需要加注解@Modifying     @Transactional
     // 否则报错如下： No EntityManager with actual transaction available for current thread - cannot reliably process 'remove' call
     @Modifying
     @Transactional
-    void deleteCartByBookidAndUid(int bookid, String uid);
+    void deleteCartByBookidAndUid(int bookid, int uid);
     @Modifying
     @Transactional
-    void deleteCartsByUid(String uid);
+    void deleteCartsByUid(int uid);
 }

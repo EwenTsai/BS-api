@@ -26,18 +26,18 @@ public class CartServiceImpl implements CartService {
     private CartRepository cartRepository;
 
     @Override
-    public List<Object[]> getCart(String uid) { return cartRepository.getCart(uid); }
+    public List<Object[]> getCart(int uid) { return cartRepository.getCart(uid); }
 
     @Override
-    public Cart getCart(int bookId, String uid) {
+    public Cart getCart(int bookId, int uid) {
         return cartRepository.findCartByBookidAndUid(bookId,uid);
     }
 
     @Override
-    public void updateAmount(String uid, int bookId, int amount) { cartRepository.setAmountFor(amount,uid,bookId); }
+    public void updateAmount(int uid, int bookId, int amount) { cartRepository.setAmountFor(amount,uid,bookId); }
 
     @Override
-    public void add(String uid, int bookId) {
+    public void add(int uid, int bookId) {
         Cart cart = cartRepository.findCartByBookidAndUid(bookId,uid);
         //cart不等于null amount=+1 等于null创建
         if(cart==null){
@@ -49,7 +49,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void settle(BigDecimal amount, String uid) {
+    public void settle(BigDecimal amount, int uid) {
         //生成uuid
         String orderId = UUID.randomUUID().toString().replace("-", "").toLowerCase();
         List<Cart> carts = cartRepository.findCartsByUid(uid);
@@ -64,10 +64,10 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void remove(String uid, int bookId) { cartRepository.deleteCartByBookidAndUid(bookId,uid); }
+    public void remove(int uid, int bookId) { cartRepository.deleteCartByBookidAndUid(bookId,uid); }
 
     @Override
-    public void removeAll(String uid) {
+    public void removeAll(int uid) {
         cartRepository.deleteCartsByUid(uid);
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface OrdersService {
     List<Orders> returnAll();
-    Page<Orders> getOrders(String uid, int pageNum);
+    Page<Orders> getOrders(int uid, int pageNum);
     Orders getOrder(String orderId);
     OrderDetailVo getOrderDetail(String orderId);
 //    void add(String uid, int number, BigDecimal amount);

@@ -1,5 +1,7 @@
 package tk.ewentsai.contronller;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -36,5 +38,11 @@ public class OrdersContronller {
     //通过用户的uid来获取订单信息
     //分页显示
     @RequestMapping("/api/Order")
-    public Page<Orders> orders(@RequestParam(defaultValue = "0") int pageNum, String uid){ return ordersService.getOrders(uid, pageNum); }
+    public Page<Orders> orders(@RequestParam(defaultValue = "0") int pageNum){
+
+        Subject subject = SecurityUtils.getSubject();
+        User user = (User) subject.getSession().getAttribute("user");
+
+        return ordersService.getOrders(user.getUid(), pageNum);
+    }
 }

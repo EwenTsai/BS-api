@@ -38,9 +38,9 @@ public class UserController {
                         HttpSession hs,
                         HttpServletResponse response){
         //检查验证码
-        if(!hs.getAttribute("kaptchaCode").equals(loginInfoVo.getKaptchaCode().toLowerCase())){
-            return ResultFactory.buildFailResult("验证码错误");
-        }
+//        if(!hs.getAttribute("kaptchaCode").equals(loginInfoVo.getKaptchaCode().toLowerCase())){
+//            return ResultFactory.buildFailResult("验证码错误");
+//        }
         //检查用户名和密码是否正确
         UsernamePasswordToken token = new UsernamePasswordToken(loginInfoVo.getUname(),loginInfoVo.getPwd());
         Subject subject = SecurityUtils.getSubject();
@@ -74,30 +74,34 @@ public class UserController {
         }
     }
     //使用cookie实现免登录
-//    @RequestMapping("/api/user/check")
-//    public Result check(String uid) {
-//        User user = userService.check(uid);
-//        boolean isAdmin = false;
-//        //无此uid用户
-//        if(user==null){
-//            return ResultFactory.buildFailResult("无此用户");
-//        }
-//
-//        UserVo userVo = new UserVo();
-//        BeanUtils.copyProperties(user,userVo);
-//        return ResultFactory.buildSuccessResult(userVo);
-//    }
+    @RequestMapping("/api/user/check")
+    public Result check() {
+
+        Subject subject = SecurityUtils.getSubject();
+        User user = (User) subject.getSession().getAttribute("user");
+
+        UserVo userVo = new UserVo();
+        BeanUtils.copyProperties(user,userVo);
+        return ResultFactory.buildSuccessResult(userVo);
+    }
     //获取用户信息
     @RequestMapping("/api/user/get")
-    public Result get(String uid){
+    public Result get(){
+
+        Subject subject = SecurityUtils.getSubject();
+        User user = (User) subject.getSession().getAttribute("user");
+
         UserVo userVo = new UserVo();
-        BeanUtils.copyProperties(userService.check(uid),userVo);
+        BeanUtils.copyProperties(user,userVo);
         return ResultFactory.buildSuccessResult(userVo);
     }
     //修改用户信息
     @RequestMapping("/api/user/update")
     public Result update(updateUserVo updateUserVo) throws ParseException {
-        User user = userService.check(updateUserVo.getUid());
+
+        Subject subject = SecurityUtils.getSubject();
+        User user = (User) subject.getSession().getAttribute("user");
+
         //时间格式转换
         DateFormat dft = new SimpleDateFormat("yyyy-MM-dd");
         Date birthday = dft.parse(updateUserVo.getBirthday());

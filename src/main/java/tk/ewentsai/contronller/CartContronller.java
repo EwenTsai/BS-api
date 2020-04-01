@@ -1,5 +1,7 @@
 package tk.ewentsai.contronller;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,9 +31,12 @@ public class CartContronller {
 
 	//得到购物车详情
 	@RequestMapping("api/Cart")
-	public Result get(String uid){
+	public Result get(){
 
-		List<Object[]> carts = cartService.getCart(uid);
+		Subject subject = SecurityUtils.getSubject();
+		User user = (User) subject.getSession().getAttribute("user");
+
+		List<Object[]> carts = cartService.getCart(user.getUid());
 
 		List<BookVo> result = new ArrayList<>();
 
@@ -44,26 +49,37 @@ public class CartContronller {
 
 	//购物车添加
 	@RequestMapping("/api/Cart/add")
-	public Result add(String uid, int bookId){
+	public Result add(int bookId){
+
+		Subject subject = SecurityUtils.getSubject();
+		User user = (User) subject.getSession().getAttribute("user");
+
 		Book book = bookService.search(bookId);
-		System.out.println("uid值=" + uid + "," + "当前类=CartContronller.add()");
 		if(book.getStock()==0){
 			return ResultFactory.buildFailResult("库存为0");
 		}else{
-			cartService.add(uid,bookId);
+			cartService.add(user.getUid(),bookId);
 			return ResultFactory.buildSuccessResult("添加成功");
 		}
 	}
 	//购物车删除
 	@RequestMapping("/api/Cart/delete")
-	public Result delete(String uid, int bookId){
-		cartService.remove(uid, bookId);
+	public Result delete(int bookId){
+
+		Subject subject = SecurityUtils.getSubject();
+		User user = (User) subject.getSession().getAttribute("user");
+
+		cartService.remove(user.getUid(), bookId);
 		return ResultFactory.buildSuccessResult("删除成功");
 	}
 	//购物车结算
 	@RequestMapping("/api/Cart/settle")
-	public Result settle(String uid, BigDecimal amount){
-		cartService.settle(amount,uid);
+	public Result settle(BigDecimal amount){
+
+		Subject subject = SecurityUtils.getSubject();
+		User user = (User) subject.getSession().getAttribute("user");
+
+		cartService.settle(amount,user.getUid());
 		return ResultFactory.buildSuccessResult("结算成功");
 	}
 }
