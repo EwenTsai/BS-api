@@ -8,10 +8,12 @@
 		<version>2.2.1.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>tk.ewentsai</groupId>
 	<artifactId>BTS</artifactId>
 	<packaging>jar</packaging>
 	<name>BS-api</name>
+	<version>2.0</version>
 	<description>online BookShop</description>
 
 	<properties>

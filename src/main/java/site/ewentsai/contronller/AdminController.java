@@ -1,5 +1,6 @@
 package site.ewentsai.contronller;
 
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,7 +24,7 @@ public class AdminController {
     @Autowired
     private BookService bookService;
     @Autowired
-    private site.ewentsai.serves.eBookService eBookService;
+    private eBookService eBookService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -34,6 +35,7 @@ public class AdminController {
     private singalOrderService singalOrderService;
 
     //修改书本信息
+    @RequiresRoles({"admin"})
     @RequestMapping("/api/Admin/updateBook")
     public Result updateBook(updateBookVo updateBookVo) throws ParseException {
         Book book = new Book();

@@ -61,7 +61,7 @@ public class UserController {
             return ResultFactory.buildSuccessResult("注册成功。");
         }
     }
-    //使用cookie实现免登录
+
     @RequestMapping("/api/user/check")
     public Result check() {
 

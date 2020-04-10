@@ -66,12 +66,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User WXRegister(String openid) {
-        User user = userRepository.findUserByUid(openid);
+        User user = userRepository.findUserByUname(openid);
         //第一次登陆的微信用户进行记录
         if(user==null){
             System.out.println("openid值=" + openid + "," + "当前类=UserServiceImpl.WXRegister()");
             user = new User();
-//            user.setUid(openid);
             user.setUname(openid);
             SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间
             sdf.applyPattern("yyyy-MM-dd");

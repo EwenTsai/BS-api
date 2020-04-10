@@ -10,6 +10,4 @@ public class loginInfoVo {
     private String uname;
 
     private String pwd;
-
-    private String kaptchaCode;
 }

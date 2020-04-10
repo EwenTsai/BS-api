@@ -12,6 +12,4 @@ public class registerInfoVo {
     private String pwd;
 
     private String rePwd;
-
-    private String kaptchaCode;
 }
