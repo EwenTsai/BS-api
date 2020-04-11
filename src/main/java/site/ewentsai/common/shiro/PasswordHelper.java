@@ -18,4 +18,9 @@ public class PasswordHelper {
                 ByteSource.Util.bytes(user.getCredentialsSalt()), HASH_ITERATIONS).toHex();
         user.setPwd(newPassword);
     }
+
+    public static String getEncryptPassword(String username,String salt,String password){
+        return new SimpleHash(ALGORITHM_NAME, password,
+                ByteSource.Util.bytes(username+salt), HASH_ITERATIONS).toHex();
+    }
 }

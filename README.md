@@ -31,7 +31,7 @@ MySQL|数据库|5.7
 Lombok|简化封装对象工具|1.18.10
 Apache shiro|安全框架|1.4.0
 JWT|JSON WEB TOKEN|3.2.0
-Google Kaptcha|验证码框架|2.3
+redis|非关系型数据库｜1.5.0.RELEASE
 #### 前端技术
 技术|说明|版本
 :--:|:--:|:--:

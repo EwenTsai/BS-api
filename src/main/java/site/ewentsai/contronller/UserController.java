@@ -4,10 +4,14 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 import site.ewentsai.common.Result.Result;
+import site.ewentsai.common.jwt.JWTToken;
+import site.ewentsai.common.jwt.JWTUtil;
+import site.ewentsai.common.shiro.PasswordHelper;
 import site.ewentsai.model.entity.User;
 import site.ewentsai.model.vo.UserVo;
 import site.ewentsai.model.vo.loginInfoVo;
@@ -33,21 +37,19 @@ public class UserController {
     //登陆
     @RequestMapping(value = "/api/user/login",produces = {"application/json;charset=UTF-8"})
     public Result login(@Valid @RequestBody loginInfoVo loginInfoVo){
-        //检查用户名和密码是否正确
-        UsernamePasswordToken token = new UsernamePasswordToken(loginInfoVo.getUname(),loginInfoVo.getPwd());
-        Subject subject = SecurityUtils.getSubject();
-
-        try {
-            subject.login(token);
-        } catch (IncorrectCredentialsException ice) {
-            return ResultFactory.buildFailResult("密码错误");
-        } catch (UnknownAccountException uae) {
+        //查询是否有此用户信息
+        User user = userService.findUserByUsername(loginInfoVo.getUname());
+        if(user==null){
             return ResultFactory.buildFailResult("用户名错误");
         }
-
-        User user = userService.findUserByUsername(loginInfoVo.getUname());
-        subject.getSession().setAttribute("user", user);
-        return ResultFactory.buildSuccessResult("登陆成功");
+        //密码加密和数据库对比
+        if(PasswordHelper.getEncryptPassword(loginInfoVo.getUname(),user.getSalt(),loginInfoVo.getPwd()).equals(user.getPwd())){
+            return ResultFactory.buildResult(200,
+                    "Login success",
+                    JWTUtil.sign(loginInfoVo.getUname(),loginInfoVo.getPwd()));
+        }else{
+            return ResultFactory.buildFailResult("密码错误");
+        }
 
     }
     //注册
@@ -66,19 +68,19 @@ public class UserController {
     public Result check() {
 
         Subject subject = SecurityUtils.getSubject();
-        User user = (User) subject.getSession().getAttribute("user");
 
-        UserVo userVo = new UserVo();
-        BeanUtils.copyProperties(user,userVo);
-        return ResultFactory.buildSuccessResult(userVo);
+        if(subject.isAuthenticated()){
+            return ResultFactory.buildSuccessResult(JWTUtil.getUsername(subject.getPrincipals().toString()));
+        }else{
+            return ResultFactory.buildFailResult("错误");
+        }
     }
     //获取用户信息
     @RequestMapping("/api/user/get")
     public Result get(){
 
         Subject subject = SecurityUtils.getSubject();
-        User user = (User) subject.getSession().getAttribute("user");
-
+        User user = userService.findUserByUsername(JWTUtil.getUsername(subject.getPrincipals().toString()));
         UserVo userVo = new UserVo();
         BeanUtils.copyProperties(user,userVo);
         return ResultFactory.buildSuccessResult(userVo);
@@ -88,7 +90,7 @@ public class UserController {
     public Result update(updateUserVo updateUserVo) throws ParseException {
 
         Subject subject = SecurityUtils.getSubject();
-        User user = (User) subject.getSession().getAttribute("user");
+        User user = userService.findUserByUsername(JWTUtil.getUsername(subject.getPrincipals().toString()));
 
         //时间格式转换
         DateFormat dft = new SimpleDateFormat("yyyy-MM-dd");

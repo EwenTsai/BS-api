@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
             user.setImageAdress("images/0.jpg");
 //            user.setRole("user");
             user.setState(1);
-
+            //密码加密
             PasswordHelper.encryptPassword(user);
             userRepository.save(user);
             return null;
