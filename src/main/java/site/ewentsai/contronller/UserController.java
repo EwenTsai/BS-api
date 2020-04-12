@@ -7,6 +7,8 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.*;
 import site.ewentsai.common.Result.Result;
 import site.ewentsai.common.jwt.JWTToken;
@@ -31,8 +33,12 @@ import java.util.Date;
 @RestController
 @CrossOrigin(allowCredentials = "true")//允许请求带上cookie
 public class UserController {
+
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     //登陆
     @RequestMapping(value = "/api/user/login",produces = {"application/json;charset=UTF-8"})
@@ -44,9 +50,13 @@ public class UserController {
         }
         //密码加密和数据库对比
         if(PasswordHelper.getEncryptPassword(loginInfoVo.getUname(),user.getSalt(),loginInfoVo.getPwd()).equals(user.getPwd())){
+            String token = JWTUtil.sign(loginInfoVo.getUname(),loginInfoVo.getPwd());
+            //redis 数据库中记录token
+            ValueOperations ops = redisTemplate.opsForValue();
+            ops.set(token,loginInfoVo.getUname());
             return ResultFactory.buildResult(200,
                     "Login success",
-                    JWTUtil.sign(loginInfoVo.getUname(),loginInfoVo.getPwd()));
+                    token);
         }else{
             return ResultFactory.buildFailResult("密码错误");
         }
@@ -68,7 +78,6 @@ public class UserController {
     public Result check() {
 
         Subject subject = SecurityUtils.getSubject();
-
         if(subject.isAuthenticated()){
             return ResultFactory.buildSuccessResult(JWTUtil.getUsername(subject.getPrincipals().toString()));
         }else{

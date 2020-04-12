@@ -60,10 +60,6 @@ public class ShiroRealm extends AuthorizingRealm {
             return null;
         }
         return new SimpleAuthenticationInfo(token,token,getName());
-
-//        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getUname(), user.getPwd(),
-//                ByteSource.Util.bytes(user.getCredentialsSalt()), getName());
-//        return authenticationInfo;
     }
 
     /**

@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import site.ewentsai.serves.BookService;
 import site.ewentsai.model.dao.BookRepository;
@@ -16,6 +18,7 @@ public class BookServiceImpl implements BookService {
 
     @Autowired
     private BookRepository bookRepository;
+
 
     @Override
     public Page<Book> findAll(int page,int num) { return bookRepository.findAll(PageRequest.of(page, num)); }

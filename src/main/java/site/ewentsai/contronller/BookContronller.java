@@ -2,6 +2,9 @@ package site.ewentsai.contronller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +20,9 @@ public class BookContronller {
     @Autowired
     private BookService bookService;
 
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     //根据搜索的关键词进行搜索
     @RequestMapping("/api/Book/search")
     public Page<Book> search(String searchText) { return bookService.search(searchText); }
@@ -30,7 +36,10 @@ public class BookContronller {
     public List<Book> all(){return bookService.findAll();};
     //分页显示
     @RequestMapping("/api/Book")
-    public Page<Book> pagination(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int num){ return bookService.findAll(page,num); }
+    public Page<Book> pagination(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int num){
+        ValueOperations valueOperations = redisTemplate.opsForValue();
+        System.out.println(valueOperations.get("rootroot"));
+        return bookService.findAll(page,num); }
 
     //按书本销量排序
     @RequestMapping("/api/Book/sales")
